@@ -1,89 +1,6 @@
 {
   "report": [
     {
-      "name": "tert",
-      "email": "gdfgdfg",
-      "type": "aggregate-user",
-      "access": "group3",
-      "id": 24
-    },
-    {
-      "name": "dfgdfg",
-      "email": "fgh",
-      "type": "aggregate-access",
-      "access": "group1",
-      "id": 25
-    },
-    {
-      "name": "dfgdfg",
-      "email": "fgh",
-      "type": "aggregate-access",
-      "access": "group1",
-      "id": 26
-    },
-    {
-      "name": "dfgdfgdfg",
-      "email": "fgh",
-      "type": "aggregate-access",
-      "access": "group1",
-      "id": 27
-    },
-    {
-      "name": "Tata",
-      "email": "",
-      "type": "aggregate-access",
-      "access": "group1",
-      "id": 28
-    },
-    {
-      "name": "Yes",
-      "email": "",
-      "type": "aggregate-access",
-      "access": "group1",
-      "id": 29
-    },
-    {
-      "type": "aggregate-user",
-      "access": "group3",
-      "name": "werwer",
-      "email": "werwer@mail.ru",
-      "id": 30
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "hgfhf",
-      "email": "fghfh@mail.ru",
-      "id": 31
-    },
-    {
-      "type": "session-level",
-      "access": "group1",
-      "name": "",
-      "email": "",
-      "id": 32
-    },
-    {
-      "type": "session-level",
-      "access": "group2",
-      "name": "dkfjskd",
-      "email": "sdjkfjskl@mail.ru",
-      "emails": [
-        "sdfsdf@mail.ru"
-      ],
-      "id": 33
-    },
-    {
-      "type": "aggregate-user",
-      "access": "group2",
-      "name": "Report-re",
-      "email": "sdfsdf@mail.com",
-      "emails": [
-        "po@mail.con"
-      ],
-      "id": 34
-    },
-    {
       "type": "aggregate-access",
       "access": "group1",
       "name": "fgdf",
@@ -132,22 +49,6 @@
       "id": 40
     },
     {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "sdfsdf",
-      "email": "sdfsdf@mail.com",
-      "emails": [],
-      "id": 41
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "erwe",
-      "email": "werwer@mail.ru",
-      "emails": [],
-      "id": 42
-    },
-    {
       "type": "session-level",
       "access": "group3",
       "name": "Test",
@@ -176,9 +77,6 @@
       "id": 45
     },
     {
-      "id": 46
-    },
-    {
       "type": "aggregate-user",
       "access": "group1",
       "name": "",
@@ -204,6 +102,109 @@
         "sdfsdfs@mail.ru"
       ],
       "id": 49
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "fgdf",
+      "email": "dfg@mail.ru",
+      "emails": [],
+      "id": 135
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "dgdfg",
+      "email": "fsdfsd@mail.ru",
+      "emails": [],
+      "id": 136
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "zxc",
+      "email": "dsf@mail.ru",
+      "emails": [],
+      "id": 137
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "dfsdf",
+      "email": "fsdfsd@mail.ru",
+      "emails": [],
+      "id": 138
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "gffg",
+      "email": "dg@mail.ru",
+      "emails": [],
+      "id": 139
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "sdf",
+      "email": "sdfsdf@mail.com",
+      "emails": [],
+      "id": 140
+    },
+    {
+      "type": "session-level",
+      "access": "group3",
+      "name": "Test",
+      "email": "tankurenkova@gmail.com",
+      "emails": [
+        "tat@mail.con"
+      ],
+      "id": 143
+    },
+    {
+      "type": "aggregate-user",
+      "access": "group1",
+      "name": "sdf",
+      "email": "fsdfsd@mail.ru",
+      "emails": [
+        "fsdf@ail.ru"
+      ],
+      "id": 144
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "fsd",
+      "email": "",
+      "emails": [],
+      "id": 145
+    },
+    {
+      "type": "aggregate-user",
+      "access": "group1",
+      "name": "",
+      "email": "",
+      "emails": [],
+      "id": 147
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "",
+      "email": "dsf@mail.ru",
+      "emails": [],
+      "id": 148
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "her",
+      "email": "her@mail.ru",
+      "emails": [
+        "dfgdfg@mail.ru",
+        "sdfsdfs@mail.ru"
+      ],
+      "id": 149
     }
   ]
 }

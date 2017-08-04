@@ -150,7 +150,10 @@ class ReportForm extends Component {
 }
 
 ReportForm.propTypes = {
-  addReport: PropTypes.func.isRequired
+  addReport: PropTypes.func.isRequired,
+  getReport: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+  newReport: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {

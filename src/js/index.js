@@ -23,10 +23,10 @@ const App = () => {
   const store = createStore(reducers, {}, applyMiddleware(thunk, router));
 
 
- //   let unsubscribe = store.subscribe(() =>
- //     console.log(store.getState())
- //   );
- // store.dispatch(actions.removeReport(5))
+  //  let unsubscribe = store.subscribe(() =>
+  //    console.log(store.getState())
+  //  );
+  // store.dispatch(goToPage(3,10))
 
   return (
     <Provider store={store}>

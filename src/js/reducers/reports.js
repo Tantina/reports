@@ -11,8 +11,10 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_REPORTS:
-      return { ...state, all: payload.data, count: payload.count };
+    case GET_REPORTS: {
+      const { page, limit, count } = payload;
+      return { ...state, all: payload.data, page, limit, count };
+    }
     case ADD_REPORT:
       return { ...state,
         all: [

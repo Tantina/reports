@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import ReportTable from './ReportTable';
 import ReportPagination from './ReportPagination';
+import ReportTableSettings from './ReportTableSettings';
 
 
 const ReportPage = props => (
@@ -12,6 +13,7 @@ const ReportPage = props => (
       Create
       </Button>
     </LinkContainer>
+    <ReportTableSettings />
     <ReportTable {...props} />
     <ReportPagination {...props} />
   </div>

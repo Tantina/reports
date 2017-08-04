@@ -3,16 +3,22 @@ import { push } from 'react-router-redux';
 import { GET_REPORTS, ADD_REPORT, REMOVE_REPORT, GET_REPORT } from '../constants/ActionTypes';
 
 let nextReport = 0;
+const count = 30; // Should be return by server
 
 export const getReports = (page, limit) => dispatch =>
   axios.get(`http://localhost:3000/report?_page=${page}&_limit=${limit}`)
-    .then(result => dispatch({
-      type: GET_REPORTS,
-      payload: {
-        data: result.data,
-        count: 25
-      }
-    })
+    .then((result) => {
+      dispatch({
+        type: GET_REPORTS,
+        payload: {
+          data: result.data,
+          page,
+          limit,
+          count
+        }
+      });
+      dispatch(push(`/reports?page=${page}&limit=${limit}`));
+    }
     );
 
 export const getReport = id => dispatch =>

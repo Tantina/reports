@@ -35,7 +35,7 @@ class ReportPagination extends Component {
         ellipsis
         boundaryLinks
         items={numOfPages}
-        activePage={this.state.activePage}
+        activePage={Number(reports.page)}
         onSelect={e => this.handleSelect(e)}
       />
     );

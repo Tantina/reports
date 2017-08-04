@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
-const ReportItemTable = (props) => {
+const ReportTableItem = (props) => {
   const { id, name, date, type, access, status } = props.report;
   return (
     <tr>
@@ -14,15 +15,15 @@ const ReportItemTable = (props) => {
       <td>{status}</td>
       <th><Link to={{ pathname: '/new', search: `id=${id}` }} >copy</Link></th>
       <td>
-        <button onClick={() => props.removeReport(id)}>Delete</button>
+        <Button bsStyle="link" onClick={() => props.removeReport(id)}>Delete</Button>
       </td>
     </tr>
   );
 };
 
-ReportItemTable.propTypes = {
+ReportTableItem.propTypes = {
   report: PropTypes.object.isRequired,
   removeReport: PropTypes.func.isRequired
 };
 
-export default ReportItemTable;
+export default ReportTableItem;

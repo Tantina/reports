@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import ReportItemTable from './ReportItemTable';
+import ReportTableItem from './ReportTableItem';
 import { getReports, removeReport } from '../../actions';
 
 
@@ -32,7 +32,7 @@ class ReportTable extends Component {
         </thead>
         <tbody>
           {reports.all.map(report => (
-            <ReportItemTable
+            <ReportTableItem
               key={report.id}
               report={report}
               removeReport={removeReport}
