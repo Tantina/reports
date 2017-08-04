@@ -1,40 +1,19 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import ReportItemTable from './ReportItemTable';
 import { getReports, removeReport } from '../../actions';
 
 
-const ReportItem = (props) => {
-  const { id, name, date, type, access, status } = props.report;
-  return (
-    <tr>
-      <td>{id}</td>
-      <td>{name}</td>
-      <td>{date}</td>
-      <td>{type}</td>
-      <td>{access}</td>
-      <td>{status}</td>
-      <th><Link to={`/edit/${id}`}>copy</Link></th>
-      <td>
-        <button onClick={() => props.removeReport(id)}>Delete</button>
-      </td>
-    </tr>
-  );
-};
-
-ReportItem.propTypes = {
-  report: PropTypes.object.isRequired,
-  removeReport: PropTypes.func.isRequired
-};
-
 class ReportTable extends Component {
   componentDidMount() {
-    const { getReports } = this.props;
-    getReports();
+    const { getReports, location } = this.props;
+    const query = new URLSearchParams(location.search);
+    const page = query.get('page');
+    const limit = query.get('limit');
+    getReports(page, limit);
   }
-
   render() {
     const { reports, removeReport } = this.props;
     return (
@@ -52,8 +31,8 @@ class ReportTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {reports.map(report => (
-            <ReportItem
+          {reports.all.map(report => (
+            <ReportItemTable
               key={report.id}
               report={report}
               removeReport={removeReport}
@@ -67,7 +46,8 @@ class ReportTable extends Component {
 }
 
 ReportTable.propTypes = {
-  reports: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
+  reports: PropTypes.object.isRequired,
   getReports: PropTypes.func.isRequired,
   removeReport: PropTypes.func.isRequired
 };

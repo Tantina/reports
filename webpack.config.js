@@ -50,7 +50,13 @@ const common = {
     new HtmlWebpackPlugin({
       template: './src/index.html'
     }),
-  ]
+  ],
+  resolve: {
+    modules: [
+      path.resolve('./src/js'),
+      path.resolve('./node_modules')
+    ]
+  },
 };
 
 if (isProduction) {

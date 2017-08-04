@@ -2,21 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
-import { regexpEmail } from '../../../constants/Regexp';
 
 const ReportEmails = (props) => {
-  const { emails, onChange } = props;
-
-  const isValidEmails = emails.every(email => (
-    regexpEmail.test(email.trim())
-  ));
+  const { emails, isValid, onChange } = props;
 
   return (
-    <FormGroup controlId="formControlsTextarea" validationState={isValidEmails ? null : 'error'}>
+    <FormGroup controlId="formControlsTextarea" validationState={isValid ? null : 'error'}>
       <ControlLabel>User Email Addresses (Optional)</ControlLabel>
       <FormControl
         componentClass="textarea"
-        value={emails.join()}
+        value={emails}
         onChange={onChange}
       />
       <HelpBlock>Comma or Line Separated Email Adresses</HelpBlock>
@@ -25,7 +20,8 @@ const ReportEmails = (props) => {
 };
 
 ReportEmails.propTypes = {
-  emails: PropTypes.array.isRequired,
+  emails: PropTypes.string.isRequired,
+  isValid: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired
 };
 

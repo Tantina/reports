@@ -22,11 +22,10 @@ import ReportForm from './components/reports/ReportForm';
 const Routes = () => (
   <div className="container">
     <h1>
-      <Link to="/">Reports</Link>
+      <Link to={{ pathname: '/reports', search: 'page=1&limit=10' }}>Reports</Link>
     </h1>
-    <Route exact path="/" component={ReportPage} />
+    <Route exact path="/reports" component={ReportPage} />
     <Route path="/new" component={ReportForm} />
-    <Route path="/edit/:id" component={ReportForm} />
   </div>
 );
 

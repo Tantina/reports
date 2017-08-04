@@ -4,11 +4,14 @@ import { GET_REPORTS, ADD_REPORT, REMOVE_REPORT, GET_REPORT } from '../constants
 
 let nextReport = 0;
 
-export const getReports = () => dispatch =>
-  axios.get('http://localhost:3000/report')
+export const getReports = (page, limit) => dispatch =>
+  axios.get(`http://localhost:3000/report?_page=${page}&_limit=${limit}`)
     .then(result => dispatch({
       type: GET_REPORTS,
-      payload: result.data
+      payload: {
+        data: result.data,
+        count: 25
+      }
     })
     );
 
@@ -25,8 +28,10 @@ export const addReport = data => dispatch =>
     .then((result) => {
       dispatch({
         type: ADD_REPORT,
-        id: nextReport++,
-        data: result.data
+        payload: {
+          id: nextReport++,
+          data: result.data
+        }
       });
       dispatch(push('/'));
     }
@@ -39,6 +44,6 @@ export const removeReport = id => dispatch =>
   axios.delete(`http://localhost:3000/report/${id}`)
     .then(() => dispatch({
       type: REMOVE_REPORT,
-      id
+      payload: id
     })
     );

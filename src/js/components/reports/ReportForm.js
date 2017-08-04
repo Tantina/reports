@@ -11,8 +11,8 @@ import ReportType from './fields/ReportType';
 import ReportAccessGroup from './fields/ReportAccessGroup';
 import ReportEmails from './fields/ReportEmails';
 import ReportDateRange from './fields/ReportDateRange';
+import { regexpReportName, regexpEmail } from '../../constants/Regexp';
 
-const dateFormat = 'YYYY-MM-DD';
 
 class ReportForm extends Component {
   constructor(props) {
@@ -23,46 +23,29 @@ class ReportForm extends Component {
       email: '',
       type: 'aggregate-access',
       access: 'group1',
-      emails: [],
+      emails: '',
       startDate: null,
-      endDate: null,
-      startDateString: '',
-      endDateString: '',
-      formErrors: {
-        name: {
-          isValid: true,
-          errorText: ''
-        },
-        email: {
-          isValid: true,
-          errorText: ''
-        },
-        emails: {
-          isValid: true,
-          errorText: ''
-        }
-      }
+      endDate: null
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    const { getReport, match } = this.props;
+    const { getReport, location } = this.props;
+    const id = new URLSearchParams(location.search).get('id');
 
-    if (match.params.id) {
-      getReport(match.params.id);
-      setTimeout(() => {
+    if (id) {
+      getReport(id).then(() => {
         this.onMount();
-      }, 200);
+      });
     }
   }
 
   onMount() {
+    const emails = this.props.newReport.emails.join(', ');
     this.setState((prevState, props) => (
-      props.newReport
+      { ...props.newReport, emails }
     ));
-  //  this.validateField('name', this.props.newReport.name);
   }
 
   handleChangeName(e) {
@@ -78,21 +61,8 @@ class ReportForm extends Component {
   }
 
   handleChangeEmails(e) {
-    const value = e.currentTarget.value;
-    let emails = [];
-
-    if (value.indexOf(',') > -1) {
-      emails = value.split(',');
-    } else if (value.indexOf('\n') > -1) {
-      emails = value.split('\n');
-    } else {
-      emails = [value];
-    }
-
-    emails = emails.map(email => email.trim());
-
     this.setState({
-      emails
+      emails: e.currentTarget.value
     });
   }
 
@@ -111,9 +81,7 @@ class ReportForm extends Component {
   handleDateChange({ startDate, endDate }) {
     this.setState({
       startDate,
-      endDate,
-      startDateString: startDate && startDate.format(dateFormat),
-      endDateString: endDate && endDate.format(dateFormat)
+      endDate
     });
   }
 
@@ -121,18 +89,25 @@ class ReportForm extends Component {
     e.preventDefault();
     const { addReport } = this.props;
     const { type, access, name, email, emails } = this.state;
-    const report = { type, access, name, email, emails };
+    const report = { type, access, name, email, emails: emails.split(/[\s,]+/) };
     addReport(report);
   }
 
   render() {
-    const { type, name, email, access, emails, startDate, endDate, formErrors } = this.state;
-    const isValidForm = formErrors.emails.isValid &&
-      formErrors.email.isValid && formErrors.name.isValid;
+    const { type, name, email, access, emails, startDate, endDate } = this.state;
+
+    const isValidName = !!name && regexpReportName.test(name);
+    const isValidEmail = !!email && regexpEmail.test(email);
+    const isValidEmails = !emails ? true : emails.split(/[\s,]+/).every(email => (
+      regexpEmail.test(email.trim())
+    ));
+    const isValidForm = isValidName && isValidEmail && isValidEmails;
+
     return (
       <form onSubmit={this.handleSubmit}>
         <ReportName
           name={name}
+          isValid={isValidName}
           onChange={e => this.handleChangeName(e)}
         />
 
@@ -148,6 +123,7 @@ class ReportForm extends Component {
 
         <ReportEmails
           emails={emails}
+          isValid={isValidEmails}
           onChange={e => this.handleChangeEmails(e)}
         />
 
@@ -161,6 +137,7 @@ class ReportForm extends Component {
 
         <ReportEmail
           email={email}
+          isValid={isValidEmail}
           onChange={e => this.handleChangeEmail(e)}
         />
 

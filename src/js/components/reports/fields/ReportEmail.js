@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { regexpEmail } from '../../../constants/Regexp';
 import FieldGroup from '../../form-fields/FieldGroup';
 
 const ReportEmail = (props) => {
-  const { email, onChange } = props;
-  const isValidField = regexpEmail.test(email);
+  const { email, onChange, isValid } = props;
 
   return (
     <FieldGroup
@@ -15,8 +13,7 @@ const ReportEmail = (props) => {
       value={email}
       label="Email This Report"
       placeholder="Enter email"
-      isValid={isValidField}
-      isRequired
+      isValid={isValid}
       onChange={onChange}
     />
   );
@@ -24,6 +21,7 @@ const ReportEmail = (props) => {
 
 ReportEmail.propTypes = {
   email: PropTypes.string.isRequired,
+  isValid: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired
 };
 
