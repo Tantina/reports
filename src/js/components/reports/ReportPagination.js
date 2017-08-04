@@ -5,21 +5,8 @@ import { Pagination } from 'react-bootstrap';
 import { getReports } from '../../actions';
 
 class ReportPagination extends Component {
-  constructor(props) {
-    super(props);
-
-    const query = new URLSearchParams(props.location.search);
-    const page = Number(query.get('page'));
-    this.state = {
-      activePage: page
-    };
-  }
-
   handleSelect(eventKey) {
     const { reports, getReports } = this.props;
-    this.setState({
-      activePage: eventKey
-    });
     getReports(eventKey, reports.limit);
   }
 
@@ -43,7 +30,6 @@ class ReportPagination extends Component {
 }
 
 ReportPagination.propTypes = {
-  location: PropTypes.object.isRequired,
   getReports: PropTypes.func.isRequired,
   reports: PropTypes.object.isRequired
 };

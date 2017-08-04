@@ -1,33 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { FormControl } from 'react-bootstrap';
 
 import { getReports } from '../../actions';
 
 class ReportTableSettings extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      limit: 10
-    };
-  }
-
   handleChangeCount(e) {
+    const { getReports } = this.props;
     const limit = Number(e.currentTarget.value);
-    this.setState({
-      limit
-    });
-    this.props.getReports(1, limit);
+    getReports(1, limit);
   }
 
   render() {
+    const { reports } = this.props;
     return (
       <div>
         <FormControl
           componentClass="select"
           placeholder="select"
-          value={this.state.limit}
+          value={reports.limit}
           onChange={e => this.handleChangeCount(e)}
         >
           <option value="10">10</option>
@@ -39,4 +31,15 @@ class ReportTableSettings extends Component {
   }
 }
 
-export default connect(null, { getReports })(ReportTableSettings);
+ReportTableSettings.propTypes = {
+  reports: PropTypes.object.isRequired,
+  getReports: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    reports: state.reports
+  };
+}
+
+export default connect(mapStateToProps, { getReports })(ReportTableSettings);
