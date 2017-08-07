@@ -4,7 +4,9 @@ const initialState = {
   all: [],
   page: 1,
   limit: 10,
-  count: 0
+  count: 0,
+  sort: 'id',
+  order: 'asc'
 };
 
 export default (state = initialState, action) => {
@@ -12,8 +14,8 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case GET_REPORTS: {
-      const { page, limit, count } = payload;
-      return { ...state, all: payload.data, page, limit, count };
+      const { page, limit, count, sort, order } = payload;
+      return { ...state, all: payload.data, page, limit, count, sort, order };
     }
     case ADD_REPORT:
       return { ...state,

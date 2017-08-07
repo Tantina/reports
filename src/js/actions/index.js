@@ -5,8 +5,9 @@ import { GET_REPORTS, ADD_REPORT, REMOVE_REPORT, GET_REPORT } from '../constants
 let nextReport = 0;
 const count = 30; // Should be return by server
 
-export const getReports = (page, limit) => dispatch =>
-  axios.get(`http://localhost:3000/report?_page=${page}&_limit=${limit}`)
+
+export const getReports = (page, limit, sort, order) => dispatch =>
+  axios.get(`http://localhost:3000/report?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`)
     .then((result) => {
       dispatch({
         type: GET_REPORTS,
@@ -14,12 +15,18 @@ export const getReports = (page, limit) => dispatch =>
           data: result.data,
           page,
           limit,
-          count
+          count,
+          sort,
+          order
         }
       });
-      dispatch(push(`/reports?page=${page}&limit=${limit}`));
+      console.log(page, limit, sort, order);
+      dispatch(push(`/reports?page=${page}&limit=${limit}&sort=${sort}&order=${order}`));
     }
-    );
+    ).catch((error) => {
+      console.log(error);
+      dispatch({ type: 'CREATE_ERROR', payload: error });
+    });
 
 export const getReport = id => dispatch =>
   axios.get(`http://localhost:3000/report/${id}`)

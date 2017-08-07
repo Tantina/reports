@@ -7,9 +7,9 @@ import { getReports } from '../../actions';
 
 class ReportTableSettings extends Component {
   handleChangeCount(e) {
-    const { getReports } = this.props;
+    const { getReports, reports } = this.props;
     const limit = Number(e.currentTarget.value);
-    getReports(1, limit);
+    getReports(1, limit, reports.sort, reports.order);
   }
 
   render() {
@@ -17,6 +17,7 @@ class ReportTableSettings extends Component {
     return (
       <div>
         <FormControl
+          className="filter-sorter"
           componentClass="select"
           placeholder="select"
           value={reports.limit}

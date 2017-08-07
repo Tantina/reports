@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import ReportTableItem from './ReportTableItem';
 import { getReports, removeReport } from '../../actions';
 
@@ -12,20 +13,40 @@ class ReportTable extends Component {
     const query = new URLSearchParams(location.search);
     const page = query.get('page');
     const limit = query.get('limit');
-    getReports(page, limit);
+    const sort = query.get('sort');
+    const order = query.get('order');
+    getReports(page, limit, sort, order);
   }
+
+  handleSort(sort) {
+    const { reports, getReports } = this.props;
+    const order = (sort === reports.sort && reports.order === 'asc') ? 'desc' : 'asc';
+
+    getReports(reports.page, reports.limit, sort, order);
+  }
+
+  displaySorter(field) {
+    const { reports } = this.props;
+    const className = classNames('glyphicon', {
+      'glyphicon-triangle-top': reports.order === 'asc',
+      'glyphicon-triangle-bottom': reports.order === 'desc'
+    });
+    return reports.sort === field ? <span className={className} /> : '';
+  }
+
   render() {
     const { reports, removeReport } = this.props;
+
     return (
       <Table striped bordered condensed hover>
         <thead>
           <tr>
-            <th>Report ID</th>
-            <th>Report Name</th>
-            <th>Date Run</th>
-            <th>Report Type</th>
+            <th onClick={() => this.handleSort('id')}>Report ID{this.displaySorter('id')}</th>
+            <th onClick={() => this.handleSort('name')}>Report Name{this.displaySorter('name')}</th>
+            <th onClick={() => this.handleSort('date')}>Date Run{this.displaySorter('date')}</th>
+            <th onClick={() => this.handleSort('type')}>Report Type{this.displaySorter('type')}</th>
             <th>Access Group(s)</th>
-            <th>Status</th>
+            <th onClick={() => this.handleSort('status')}>Status{this.displaySorter('status')}</th>
             <th />
             <th />
           </tr>

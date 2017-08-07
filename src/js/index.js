@@ -26,7 +26,7 @@ const App = () => {
   //  let unsubscribe = store.subscribe(() =>
   //    console.log(store.getState())
   //  );
-  // store.dispatch(goToPage(3,10))
+  // store.dispatch(getReports(1,10, 'name', 'asc'));
 
   return (
     <Provider store={store}>

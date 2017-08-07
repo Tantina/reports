@@ -7,7 +7,7 @@ import { getReports } from '../../actions';
 class ReportPagination extends Component {
   handleSelect(eventKey) {
     const { reports, getReports } = this.props;
-    getReports(eventKey, reports.limit);
+    getReports(eventKey, reports.limit, reports.sort, reports.order);
   }
 
   render() {

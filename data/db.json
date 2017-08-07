@@ -77,14 +77,6 @@
       "id": 45
     },
     {
-      "type": "aggregate-user",
-      "access": "group1",
-      "name": "",
-      "email": "",
-      "emails": [],
-      "id": 47
-    },
-    {
       "type": "aggregate-access",
       "access": "group1",
       "name": "",
