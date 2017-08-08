@@ -1,1 +1,27 @@
-@import 'react-dates/lib/css/_datepicker.css';
+
+.reports-page {
+  .create-report-btn {
+
+  }
+}
+.filter-sorter{
+  float: right;
+
+  &__select {
+    display: inline-block;
+    margin-left: 5px;
+    width: 50px;
+  }
+}
+
+.report-table {
+  margin: 10px 0;
+}
+
+.sorter-icon {
+  margin-left: 5px;
+}
+
+.field__sortable {
+  cursor: pointer;
+}

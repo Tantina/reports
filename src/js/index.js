@@ -11,6 +11,8 @@ import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import Routes from './router';
 import reducers from './reducers';
 
+import '../css/main.css';
+
 // let showConsole = function() {
 //   System.import('./components/Console/Console').then(module => {
 //     module.default();

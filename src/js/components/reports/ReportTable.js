@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ReportTableItem from './ReportTableItem';
-import { getReports, removeReport } from '../../actions';
 
 
 class ReportTable extends Component {
   componentDidMount() {
-    const { getReports, location } = this.props;
+    const { getReports, location, reports } = this.props;
     const query = new URLSearchParams(location.search);
-    const page = query.get('page');
-    const limit = query.get('limit');
-    const sort = query.get('sort');
-    const order = query.get('order');
+    const page = query.get('page') || reports.page;
+    const limit = query.get('limit') || reports.limit;
+    const sort = query.get('sort') || reports.sort;
+    const order = query.get('order') || reports.order;
     getReports(page, limit, sort, order);
   }
 
@@ -27,7 +25,7 @@ class ReportTable extends Component {
 
   displaySorter(field) {
     const { reports } = this.props;
-    const className = classNames('glyphicon', {
+    const className = classNames('glyphicon', 'sorter-icon', {
       'glyphicon-triangle-top': reports.order === 'asc',
       'glyphicon-triangle-bottom': reports.order === 'desc'
     });
@@ -38,15 +36,15 @@ class ReportTable extends Component {
     const { reports, removeReport } = this.props;
 
     return (
-      <Table striped bordered condensed hover>
+      <Table striped bordered condensed hover className="report-table">
         <thead>
           <tr>
-            <th onClick={() => this.handleSort('id')}>Report ID{this.displaySorter('id')}</th>
-            <th onClick={() => this.handleSort('name')}>Report Name{this.displaySorter('name')}</th>
-            <th onClick={() => this.handleSort('date')}>Date Run{this.displaySorter('date')}</th>
-            <th onClick={() => this.handleSort('type')}>Report Type{this.displaySorter('type')}</th>
+            <th className="field__sortable" onClick={() => this.handleSort('id')}>Report ID{this.displaySorter('id')}</th>
+            <th className="field__sortable" onClick={() => this.handleSort('name')}>Report Name{this.displaySorter('name')}</th>
+            <th className="field__sortable" onClick={() => this.handleSort('date')}>Date Run{this.displaySorter('date')}</th>
+            <th className="field__sortable" onClick={() => this.handleSort('type')}>Report Type{this.displaySorter('type')}</th>
             <th>Access Group(s)</th>
-            <th onClick={() => this.handleSort('status')}>Status{this.displaySorter('status')}</th>
+            <th className="field__sortable" onClick={() => this.handleSort('status')}>Status{this.displaySorter('status')}</th>
             <th />
             <th />
           </tr>
@@ -73,10 +71,4 @@ ReportTable.propTypes = {
   removeReport: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
-  return {
-    reports: state.reports
-  };
-}
-
-export default connect(mapStateToProps, { getReports, removeReport })(ReportTable);
+export default ReportTable;

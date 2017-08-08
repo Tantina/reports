@@ -1,6 +1,13 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
-import { GET_REPORTS, ADD_REPORT, REMOVE_REPORT, GET_REPORT } from '../constants/ActionTypes';
+import {
+  GET_REPORTS,
+  ADD_REPORT,
+  REMOVE_REPORT,
+  GET_REPORT,
+  CREATE_ERROR,
+  CLEAR_ERROR
+} from '../constants/ActionTypes';
 
 let nextReport = 0;
 const count = 30; // Should be return by server
@@ -20,12 +27,10 @@ export const getReports = (page, limit, sort, order) => dispatch =>
           order
         }
       });
-      console.log(page, limit, sort, order);
       dispatch(push(`/reports?page=${page}&limit=${limit}&sort=${sort}&order=${order}`));
     }
     ).catch((error) => {
-      console.log(error);
-      dispatch({ type: 'CREATE_ERROR', payload: error });
+      dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 
 export const getReport = id => dispatch =>
@@ -34,7 +39,9 @@ export const getReport = id => dispatch =>
       type: GET_REPORT,
       payload: result.data
     })
-    );
+    ).catch((error) => {
+      dispatch({ type: CREATE_ERROR, payload: error.message });
+    });
 
 export const addReport = data => dispatch =>
   axios.post('http://localhost:3000/report', data)
@@ -46,11 +53,10 @@ export const addReport = data => dispatch =>
           data: result.data
         }
       });
-      dispatch(push('/'));
+      dispatch(push('/reports?page=1&limit=10&sort=id&order=desc'));
     }
     ).catch((error) => {
-      console.log(error);
-      dispatch({ type: 'CREATE_ERROR', payload: error });
+      dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 
 export const removeReport = id => dispatch =>
@@ -59,4 +65,11 @@ export const removeReport = id => dispatch =>
       type: REMOVE_REPORT,
       payload: id
     })
-    );
+    ).catch((error) => {
+      dispatch({ type: CREATE_ERROR, payload: error.message });
+    });
+
+export const clearErrors = () => dispatch =>
+  dispatch({
+    type: CLEAR_ERROR
+  });

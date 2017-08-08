@@ -79,14 +79,6 @@
     {
       "type": "aggregate-access",
       "access": "group1",
-      "name": "",
-      "email": "dsf@mail.ru",
-      "emails": [],
-      "id": 48
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
       "name": "her",
       "email": "her@mail.ru",
       "emails": [
@@ -197,6 +189,57 @@
         "sdfsdfs@mail.ru"
       ],
       "id": 149
+    },
+    {
+      "type": "aggregate-user",
+      "access": "group3",
+      "name": "The-best-Report",
+      "email": "tankurenkova@gmail.com",
+      "emails": [
+        "t@mail.com",
+        "sdf@mail.fs"
+      ],
+      "id": 150
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "dsf",
+      "email": "sdfsdf@mail.com",
+      "emails": [
+        ""
+      ],
+      "id": 151
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "fdg",
+      "email": "dfg@mail.ru",
+      "emails": [
+        ""
+      ],
+      "id": 152
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "dasd",
+      "email": "asd@mail.ru",
+      "emails": [
+        ""
+      ],
+      "id": 153
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "blin",
+      "email": "sdfsdf@mail.com",
+      "emails": [
+        ""
+      ],
+      "id": 154
     }
   ]
 }

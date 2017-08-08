@@ -6,7 +6,7 @@ const initialState = {
   limit: 10,
   count: 0,
   sort: 'id',
-  order: 'asc'
+  order: 'desc'
 };
 
 export default (state = initialState, action) => {

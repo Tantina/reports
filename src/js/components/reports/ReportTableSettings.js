@@ -1,46 +1,38 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FormControl } from 'react-bootstrap';
 
-import { getReports } from '../../actions';
 
-class ReportTableSettings extends Component {
-  handleChangeCount(e) {
-    const { getReports, reports } = this.props;
+const ReportTableSettings = (props) => {
+  const { reports } = props;
+
+  const handleChangeCount = (e) => {
+    const { getReports, reports } = props;
     const limit = Number(e.currentTarget.value);
     getReports(1, limit, reports.sort, reports.order);
-  }
+  };
 
-  render() {
-    const { reports } = this.props;
-    return (
-      <div>
-        <FormControl
-          className="filter-sorter"
-          componentClass="select"
-          placeholder="select"
-          value={reports.limit}
-          onChange={e => this.handleChangeCount(e)}
-        >
-          <option value="10">10</option>
-          <option value="15">15</option>
-          <option value="20">20</option>
-        </FormControl>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="filter-sorter">
+      <span>Show</span>
+      <FormControl
+        className="filter-sorter__select"
+        componentClass="select"
+        placeholder="select"
+        value={reports.limit}
+        onChange={e => handleChangeCount(e)}
+      >
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+      </FormControl>
+    </div>
+  );
+};
 
 ReportTableSettings.propTypes = {
   reports: PropTypes.object.isRequired,
   getReports: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
-  return {
-    reports: state.reports
-  };
-}
-
-export default connect(mapStateToProps, { getReports })(ReportTableSettings);
+export default ReportTableSettings;

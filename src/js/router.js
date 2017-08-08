@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 
 import ReportPage from './components/reports/ReportPage';
 import ReportForm from './components/reports/ReportForm';
@@ -22,10 +22,11 @@ import ReportForm from './components/reports/ReportForm';
 const Routes = () => (
   <div className="container">
     <h1>
-      <Link to={{ pathname: '/reports', search: 'page=1&limit=10&sort=id&order=asc' }}>Reports</Link>
+      <Link to={{ pathname: '/reports' }}>Reports</Link>
     </h1>
     <Route exact path="/reports" component={ReportPage} />
     <Route path="/new" component={ReportForm} />
+    <Redirect from="/" to="/reports" />
   </div>
 );
 

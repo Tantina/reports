@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import 'react-dates/lib/css/_datepicker.css';
 
-import { addReport, getReport } from '../../actions';
+import { addReport, getReport, clearErrors } from '../../actions';
 import ReportName from './fields/ReportName';
 import ReportEmail from './fields/ReportEmail';
 import ReportType from './fields/ReportType';
@@ -39,6 +39,10 @@ class ReportForm extends Component {
         this.onMount();
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearErrors();
   }
 
   onMount() {
@@ -95,6 +99,8 @@ class ReportForm extends Component {
 
   render() {
     const { type, name, email, access, emails, startDate, endDate } = this.state;
+    const { errorMessage } = this.props;
+
 
     const isValidName = !!name && regexpReportName.test(name);
     const isValidEmail = !!email && regexpEmail.test(email);
@@ -102,6 +108,8 @@ class ReportForm extends Component {
       regexpEmail.test(email.trim())
     ));
     const isValidForm = isValidName && isValidEmail && isValidEmails;
+
+    const errorBlock = errorMessage ? <Alert bsStyle="danger">{errorMessage}</Alert> : null;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -141,6 +149,8 @@ class ReportForm extends Component {
           onChange={e => this.handleChangeEmail(e)}
         />
 
+        {errorBlock}
+
         <Button bsStyle="primary" type="submit" disabled={!isValidForm}>
           Submit
         </Button>
@@ -153,13 +163,16 @@ ReportForm.propTypes = {
   addReport: PropTypes.func.isRequired,
   getReport: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
-  newReport: PropTypes.object.isRequired
+  newReport: PropTypes.object.isRequired,
+  clearErrors: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    newReport: state.newReport
+    newReport: state.newReport,
+    errorMessage: state.errors
   };
 }
 
-export default connect(mapStateToProps, { addReport, getReport })(ReportForm);
+export default connect(mapStateToProps, { addReport, getReport, clearErrors })(ReportForm);
