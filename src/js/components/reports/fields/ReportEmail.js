@@ -11,7 +11,7 @@ const ReportEmail = (props) => {
       id="formControlsEmail"
       type="email"
       value={email}
-      label="Email This Report"
+      label="Email This Report to"
       placeholder="Enter email"
       isValid={isValid}
       onChange={onChange}

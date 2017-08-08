@@ -5,6 +5,7 @@ import {
   ADD_REPORT,
   REMOVE_REPORT,
   GET_REPORT,
+  SEARCH_REPORT,
   CREATE_ERROR,
   CLEAR_ERROR
 } from '../constants/ActionTypes';
@@ -64,6 +65,16 @@ export const removeReport = id => dispatch =>
     .then(() => dispatch({
       type: REMOVE_REPORT,
       payload: id
+    })
+    ).catch((error) => {
+      dispatch({ type: CREATE_ERROR, payload: error.message });
+    });
+
+export const searchReport = name => dispatch =>
+  axios.get(`http://localhost:3000/report?q=${name}`)
+    .then(result => dispatch({
+      type: SEARCH_REPORT,
+      payload: result.data
     })
     ).catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });

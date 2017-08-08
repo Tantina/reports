@@ -42,4 +42,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getReports, removeReport, clearErrors })(ReportPage);
+export default connect(mapStateToProps,
+  { getReports, removeReport, clearErrors })(ReportPage);

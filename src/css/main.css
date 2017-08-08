@@ -14,8 +14,18 @@
   }
 }
 
-.report-table {
+table.report-table {
   margin: 10px 0;
+
+  tbody>tr>td {
+    vertical-align: middle;
+  }
+}
+
+.report-table__item {
+  &--action{
+    text-align: center;
+  }
 }
 
 .sorter-icon {
@@ -24,4 +34,20 @@
 
 .field__sortable {
   cursor: pointer;
+}
+
+.copy-link {
+  &,
+  &:hover,
+  &:visited {
+    color: #166240;
+  }
+}
+
+.delete-link {
+  &,
+  &:hover,
+  &:visited {
+    color: #a22d30;
+  }
 }

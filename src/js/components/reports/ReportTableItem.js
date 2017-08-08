@@ -7,15 +7,26 @@ const ReportTableItem = (props) => {
   const { id, name, date, type, access, status } = props.report;
   return (
     <tr>
-      <td>{id}</td>
-      <td>{name}</td>
-      <td>{date}</td>
-      <td>{type}</td>
-      <td>{access}</td>
-      <td>{status}</td>
-      <th><Link to={{ pathname: '/new', search: `id=${id}` }} >copy</Link></th>
-      <td>
-        <Button bsStyle="link" onClick={() => props.removeReport(id)}>Delete</Button>
+      <td className="report-table__item">{id}</td>
+      <td className="report-table__item">{name}</td>
+      <td className="report-table__item">{date}</td>
+      <td className="report-table__item">{type}</td>
+      <td className="report-table__item">{access}</td>
+      <td className="report-table__item">{status}</td>
+      <td className="report-table__item report-table__item--action">
+        <Link
+          className="copy-link"
+          to={{ pathname: '/new', search: `id=${id}` }}
+        >copy
+        </Link>
+      </td>
+      <td className="report-table__item report-table__item--action">
+        <Button
+          bsStyle="link"
+          className="delete-link"
+          onClick={() => props.removeReport(id)}
+        >Delete
+        </Button>
       </td>
     </tr>
   );

@@ -1,4 +1,9 @@
-import { GET_REPORTS, ADD_REPORT, REMOVE_REPORT } from '../constants/ActionTypes';
+import {
+  GET_REPORTS,
+  ADD_REPORT,
+  REMOVE_REPORT,
+  SEARCH_REPORT
+} from '../constants/ActionTypes';
 
 const initialState = {
   all: [],
@@ -28,6 +33,8 @@ export default (state = initialState, action) => {
       return { ...state,
         all: state.all.filter(report => report.id !== payload)
       };
+    case SEARCH_REPORT:
+      return { ...state, all: payload };
     default:
       return state;
   }
