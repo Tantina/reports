@@ -13,8 +13,6 @@ const VENDOR_LIBS = [
   'react-dom',
   'react-redux',
   'redux',
-  'redux-thunk',
-  'react-router-dom',
   'react-bootstrap',
   'classnames',
   'prop-types'
@@ -61,9 +59,7 @@ const common = {
 if (isProduction) {
   module.exports = merge(common, {
     plugins: [
-      new webpack.NoErrorsPlugin(),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false,
@@ -73,16 +69,18 @@ if (isProduction) {
           comments: false,
         }
       }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true
+      }),
       new ExtractTextPlugin({
-        filename: 'style.[contentHash].css',
-        allChunks: true,
+        filename: 'app.css'
       }),
     ],
     module: {
       rules: [
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: 'css-loader!postcss-loader',
           })

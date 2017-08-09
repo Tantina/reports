@@ -28,12 +28,15 @@ const ReportDateRange = (props) => {
 ReportDateRange.propTypes = {
   startDate: PropTypes.object,
   endDate: PropTypes.object,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  focusedInput: PropTypes.oneOf(['START_DATE', 'END_DATE']),
+  onFocusChange: PropTypes.func.isRequired
 };
 
 ReportDateRange.defaultProps = {
   startDate: null,
-  endDate: null
+  endDate: null,
+  focusedInput: null
 };
 
 export default ReportDateRange;

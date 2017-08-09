@@ -13,22 +13,10 @@ import reducers from './reducers';
 
 import '../css/main.css';
 
-// let showConsole = function() {
-//   System.import('./components/Console/Console').then(module => {
-//     module.default();
-//   });
-// };
-
 const App = () => {
   const history = createHistory();
   const router = routerMiddleware(history);
   const store = createStore(reducers, {}, applyMiddleware(thunk, router));
-
-
-  //  let unsubscribe = store.subscribe(() =>
-  //    console.log(store.getState())
-  //  );
-  // store.dispatch(getReports(1,10, 'name', 'asc'));
 
   return (
     <Provider store={store}>
