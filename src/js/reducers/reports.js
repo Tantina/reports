@@ -2,7 +2,8 @@ import {
   GET_REPORTS,
   ADD_REPORT,
   REMOVE_REPORT,
-  SEARCH_REPORT
+  SEARCH_REPORT,
+  GET_REPORT_STATUS
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -31,10 +32,16 @@ export default (state = initialState, action) => {
       };
     case REMOVE_REPORT:
       return { ...state,
-        all: state.all.filter(report => report.id !== payload)
+        all: state.all.filter(report => report.id !== payload.id)
       };
     case SEARCH_REPORT:
       return { ...state, all: payload };
+    case GET_REPORT_STATUS:
+      return { ...state,
+        all: state.all.map(report => (payload.ids.contains(report.id)
+          ? { ...report, status: payload.data.filter(item => item.id === report.id).status }
+          : report))
+      };
     default:
       return state;
   }

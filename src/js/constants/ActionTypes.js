@@ -1,8 +1,10 @@
 export const GET_REPORTS = 'GET_REPORTS';
 export const REMOVE_REPORT = 'REMOVE_REPORT';
 export const ADD_REPORT = 'ADD_REPORT';
-export const GET_REPORT = 'GET_REPORT';
+export const GET_REPORT_CSV = 'GET_REPORT_CSV';
 export const SEARCH_REPORT = 'SEARCH_REPORT';
+export const GET_REPORT_TYPES = 'GET_REPORT_TYPES';
+export const GET_REPORT_STATUS = 'GET_REPORT_STATUS';
 
 export const CREATE_ERROR = 'CREATE_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';

@@ -92,7 +92,10 @@ if (isProduction) {
   module.exports = merge(common, {
 
     devServer: {
-      historyApiFallback: true
+      historyApiFallback: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),

@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { Table } from 'react-bootstrap';
 import ReportTableItem from './ReportTableItem';
+import { getReportTypes } from '../../actions';
 
 
 class ReportTable extends Component {
   componentDidMount() {
-    const { getReports, location, reports } = this.props;
+    const { getReports, location, reports, getReportTypes, reportTypes } = this.props;
     const query = new URLSearchParams(location.search);
     const page = query.get('page') || reports.page;
     const limit = query.get('limit') || reports.limit;
     const sort = query.get('sort') || reports.sort;
     const order = query.get('order') || reports.order;
     getReports(page, limit, sort, order);
+
+    if (!reportTypes.length) getReportTypes();
   }
 
   handleSort(sort) {
@@ -33,7 +37,7 @@ class ReportTable extends Component {
   }
 
   render() {
-    const { reports, removeReport } = this.props;
+    const { reports, reportTypes } = this.props;
 
     return (
       <Table striped bordered condensed hover className="report-table">
@@ -41,10 +45,11 @@ class ReportTable extends Component {
           <tr>
             <th className="field__sortable" onClick={() => this.handleSort('id')}>Report ID{this.displaySorter('id')}</th>
             <th className="field__sortable" onClick={() => this.handleSort('name')}>Report Name{this.displaySorter('name')}</th>
-            <th className="field__sortable" onClick={() => this.handleSort('date')}>Date Run{this.displaySorter('date')}</th>
+            <th className="field__sortable" onClick={() => this.handleSort('submitTime')}>Date Run{this.displaySorter('submitTime')}</th>
             <th className="field__sortable" onClick={() => this.handleSort('type')}>Report Type{this.displaySorter('type')}</th>
             <th>Access Group(s)</th>
             <th className="field__sortable" onClick={() => this.handleSort('status')}>Status{this.displaySorter('status')}</th>
+            <th />
             <th />
             <th />
           </tr>
@@ -54,7 +59,7 @@ class ReportTable extends Component {
             <ReportTableItem
               key={report.id}
               report={report}
-              removeReport={removeReport}
+              reportTypes={reportTypes}
             />
           ))
           }
@@ -68,7 +73,14 @@ ReportTable.propTypes = {
   location: PropTypes.object.isRequired,
   reports: PropTypes.object.isRequired,
   getReports: PropTypes.func.isRequired,
-  removeReport: PropTypes.func.isRequired
+  reportTypes: PropTypes.array.isRequired,
+  getReportTypes: PropTypes.func.isRequired
 };
 
-export default ReportTable;
+function mapStateToProps(state) {
+  return {
+    reportTypes: state.reportTypes
+  };
+}
+
+export default connect(mapStateToProps, { getReportTypes })(ReportTable);

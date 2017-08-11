@@ -13,9 +13,9 @@ const ReportAccessGroup = (props) => {
         value={access}
         onChange={onChange}
       >
-        <option value="group1">group1</option>
-        <option value="group2">group2</option>
-        <option value="group3">group3</option>
+        <option value="3d6b8a9c-6d34-11e7-907b-a6006ad3dba0">group1</option>
+        <option value="3d6b8a9c-6d34-11e7-907b-a6006ad3dba0">group2</option>
+        <option value="3d6b8a9c-6d34-11e7-907b-a6006ad3dba0">group3</option>
       </FormControl>
     </FormGroup>
   );

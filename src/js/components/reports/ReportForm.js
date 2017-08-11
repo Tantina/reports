@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { Button, Alert } from 'react-bootstrap';
 import 'react-dates/lib/css/_datepicker.css';
 
-import { addReport, getReport, clearErrors } from '../../actions';
+import { addReport, clearErrors } from '../../actions';
 import ReportName from './fields/ReportName';
 import ReportEmail from './fields/ReportEmail';
 import ReportType from './fields/ReportType';
@@ -18,38 +19,40 @@ class ReportForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    let initialState = {
       name: '',
-      email: '',
-      type: 'aggregate-access',
-      access: 'group1',
+      emailTo: '',
+      type: 'USER_AGREGATE_ACCESS',
+      access: '3d6b8a9c-6d34-11e7-907b-a6006ad3dba0',
       emails: '',
       startDate: null,
       endDate: null
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
-  componentDidMount() {
-    const { getReport, location } = this.props;
-    const id = new URLSearchParams(location.search).get('id');
+    const { reports, location } = props;
+    const id = Number(new URLSearchParams(location.search).get('id'));
+    const existedReport = reports.all.find(report => report.id === id);
 
-    if (id) {
-      getReport(id).then(() => {
-        this.onMount();
-      });
+    if (id && existedReport) {
+      const { name, emailTo, reportMetadata } = existedReport;
+      initialState = {
+        name,
+        emailTo,
+        type: reportMetadata.reportType,
+        access: reportMetadata.accessGroupUUID,
+        emails: reportMetadata.userEmails.join(', '),
+        startDate: moment(reportMetadata.startDate),
+        endDate: moment(reportMetadata.endDate)
+      };
     }
+
+    this.state = initialState;
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillUnmount() {
     this.props.clearErrors();
-  }
-
-  onMount() {
-    const emails = this.props.newReport.emails.join(', ');
-    this.setState((prevState, props) => (
-      { ...props.newReport, emails }
-    ));
   }
 
   handleChangeName(e) {
@@ -60,7 +63,7 @@ class ReportForm extends Component {
 
   handleChangeEmail(e) {
     this.setState({
-      email: e.currentTarget.value
+      emailTo: e.currentTarget.value
     });
   }
 
@@ -92,20 +95,27 @@ class ReportForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { addReport } = this.props;
-    const { type, access, name, email, emails } = this.state;
-    const report = { type, access, name, email, emails: emails.split(/[\s,]+/) };
+    const { type, access, name, startDate, endDate, emailTo, emails } = this.state;
+    const report = {
+      type,
+      access,
+      name,
+      emailTo,
+      startDate: startDate && startDate.format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: endDate && endDate.format('YYYY-MM-DDTHH:mm:ss'),
+      emails: emails ? emails.split(/[\s,]+/) : [] };
     addReport(report);
   }
 
   render() {
-    const { type, name, email, access, emails, startDate, endDate } = this.state;
+    const { type, name, emailTo, access, emails, startDate, endDate } = this.state;
     const { errorMessage } = this.props;
 
 
     const isValidName = !!name && regexpReportName.test(name);
-    const isValidEmail = !!email && regexpEmail.test(email);
-    const isValidEmails = !emails ? true : emails.split(/[\s,]+/).every(email => (
-      regexpEmail.test(email.trim())
+    const isValidEmail = !!emailTo && regexpEmail.test(emailTo);
+    const isValidEmails = !emails ? true : emails.split(/[\s,]+/).every(emailTo => (
+      regexpEmail.test(emailTo.trim())
     ));
     const isValidForm = isValidName && isValidEmail && isValidEmails;
 
@@ -144,7 +154,7 @@ class ReportForm extends Component {
         />
 
         <ReportEmail
-          email={email}
+          email={emailTo}
           isValid={isValidEmail}
           onChange={e => this.handleChangeEmail(e)}
         />
@@ -161,18 +171,17 @@ class ReportForm extends Component {
 
 ReportForm.propTypes = {
   addReport: PropTypes.func.isRequired,
-  getReport: PropTypes.func.isRequired,
+  reports: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  newReport: PropTypes.object.isRequired,
   clearErrors: PropTypes.func.isRequired,
   errorMessage: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    newReport: state.newReport,
+    reports: state.reports,
     errorMessage: state.errors
   };
 }
 
-export default connect(mapStateToProps, { addReport, getReport, clearErrors })(ReportForm);
+export default connect(mapStateToProps, { addReport, clearErrors })(ReportForm);

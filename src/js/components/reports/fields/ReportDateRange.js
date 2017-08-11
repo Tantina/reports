@@ -29,7 +29,7 @@ ReportDateRange.propTypes = {
   startDate: PropTypes.object,
   endDate: PropTypes.object,
   onChange: PropTypes.func.isRequired,
-  focusedInput: PropTypes.oneOf(['START_DATE', 'END_DATE']),
+  focusedInput: PropTypes.oneOf(['startDate', 'endDate']),
   onFocusChange: PropTypes.func.isRequired
 };
 

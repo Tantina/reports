@@ -4,26 +4,26 @@ import {
   GET_REPORTS,
   ADD_REPORT,
   REMOVE_REPORT,
+  GET_REPORT,
   SEARCH_REPORT,
   CREATE_ERROR,
-  GET_REPORT_TYPES,
-  GET_REPORT_STATUS,
   CLEAR_ERROR
 } from '../constants/ActionTypes';
 
-import { host } from '../constants/host';
+let nextReport = 0;
+const count = 30; // Should be returned by server
+
 
 export const getReports = (page, limit, sort, order) => dispatch =>
-  axios.get(`${host}/report?page=${page - 1}&size=${limit}&sort=${sort},${order}`)
+  axios.get(`http://localhost:3000/report?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`)
     .then((result) => {
-      const { content, totalElements } = result.data;
       dispatch({
         type: GET_REPORTS,
         payload: {
-          data: content,
+          data: result.data,
           page,
           limit,
-          count: totalElements,
+          count,
           sort,
           order
         }
@@ -34,23 +34,23 @@ export const getReports = (page, limit, sort, order) => dispatch =>
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 
-export const addReport = data => (dispatch) => {
-  const { access, emailTo, endDate, name, type, startDate, emails } = data;
-  const query = {
-    accessGroupUUID: access,
-    emailTo,
-    endDate,
-    lessonUUID: '',
-    reportName: name,
-    reportType: type,
-    startDate,
-    userEmails: emails
-  };
-  axios.post(`${host}/report`, query)
+export const getReport = id => dispatch =>
+  axios.get(`http://localhost:3000/report/${id}`)
+    .then(result => dispatch({
+      type: GET_REPORT,
+      payload: result.data
+    })
+    ).catch((error) => {
+      dispatch({ type: CREATE_ERROR, payload: error.message });
+    });
+
+export const addReport = data => dispatch =>
+  axios.post('http://localhost:3000/report', data)
     .then((result) => {
       dispatch({
         type: ADD_REPORT,
         payload: {
+          id: nextReport++,
           data: result.data
         }
       });
@@ -59,15 +59,12 @@ export const addReport = data => (dispatch) => {
     ).catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
-};
 
 export const removeReport = id => dispatch =>
-  axios.delete(`${host}/report/${id}`)
+  axios.delete(`http://localhost:3000/report/${id}`)
     .then(() => dispatch({
       type: REMOVE_REPORT,
-      payload: {
-        id
-      }
+      payload: id
     })
     ).catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });
@@ -78,31 +75,6 @@ export const searchReport = name => dispatch =>
     .then(result => dispatch({
       type: SEARCH_REPORT,
       payload: result.data
-    })
-    ).catch((error) => {
-      dispatch({ type: CREATE_ERROR, payload: error.message });
-    });
-
-export const getReportTypes = () => dispatch =>
-  axios.get(`${host}/report/types`)
-    .then(result => dispatch({
-      type: GET_REPORT_TYPES,
-      payload: {
-        data: result.data
-      }
-    })
-    ).catch((error) => {
-      dispatch({ type: CREATE_ERROR, payload: error.message });
-    });
-
-export const getReportStatus = ids => dispatch =>
-  axios.get(`${host}/report/statuses`, ids)
-    .then(result => dispatch({
-      type: GET_REPORT_STATUS,
-      payload: {
-        data: result.data,
-        ids
-      }
     })
     ).catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });

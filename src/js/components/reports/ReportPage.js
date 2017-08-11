@@ -7,7 +7,7 @@ import ReportTable from './ReportTable';
 import ReportPagination from './ReportPagination';
 import ReportTableSettings from './ReportTableSettings';
 
-import { getReports, removeReport, clearErrors } from '../../actions';
+import { getReports, clearErrors } from '../../actions';
 
 
 class ReportPage extends Component {
@@ -43,4 +43,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps,
-  { getReports, removeReport, clearErrors })(ReportPage);
+  { getReports, clearErrors })(ReportPage);

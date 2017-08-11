@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 import ReportPage from './components/reports/ReportPage';
 import ReportForm from './components/reports/ReportForm';
@@ -26,7 +26,6 @@ const Routes = () => (
     </h1>
     <Route exact path="/reports" component={ReportPage} />
     <Route path="/new" component={ReportForm} />
-    <Redirect from="/" to="/reports" />
   </div>
 );
 

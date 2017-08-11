@@ -227,6 +227,48 @@
         "sdfsd@mail.com"
       ],
       "id": 156
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "xcv",
+      "email": "xcv@mail.ru",
+      "emails": [],
+      "id": 159
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "dasd",
+      "email": "asd@mail.ru",
+      "emails": [],
+      "id": 160
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "fsd",
+      "email": "fsdfsd@mail.ru",
+      "emails": [],
+      "id": 161
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "xcv",
+      "email": "cvx@mail.eu",
+      "emails": [],
+      "id": 162
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "sdf",
+      "email": "sdfsdf@mail.com",
+      "startDate": null,
+      "endDate": null,
+      "emails": [],
+      "id": 163
     }
   ]
 }
