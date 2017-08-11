@@ -35,14 +35,15 @@ class ReportForm extends Component {
 
     if (id && existedReport) {
       const { name, emailTo, reportMetadata } = existedReport;
+      const { reportType, accessGroupUUID, userEmails, startDate, endDate } = reportMetadata;
       initialState = {
         name,
         emailTo,
-        type: reportMetadata.reportType,
-        access: reportMetadata.accessGroupUUID,
-        emails: reportMetadata.userEmails.join(', '),
-        startDate: moment(reportMetadata.startDate),
-        endDate: moment(reportMetadata.endDate)
+        type: reportType,
+        access: accessGroupUUID,
+        emails: userEmails.join(', '),
+        startDate: startDate && moment(startDate),
+        endDate: endDate && moment(endDate)
       };
     }
 

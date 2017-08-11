@@ -9,15 +9,20 @@ import { getReportTypes } from '../../actions';
 
 class ReportTable extends Component {
   componentDidMount() {
-    const { getReports, location, reports, getReportTypes, reportTypes } = this.props;
+    const { getReportTypes, reportTypes } = this.props;
+    this.getReportList();
+
+    if (!reportTypes.length) getReportTypes();
+  }
+
+  getReportList() {
+    const { getReports, location, reports } = this.props;
     const query = new URLSearchParams(location.search);
     const page = query.get('page') || reports.page;
     const limit = query.get('limit') || reports.limit;
     const sort = query.get('sort') || reports.sort;
     const order = query.get('order') || reports.order;
     getReports(page, limit, sort, order);
-
-    if (!reportTypes.length) getReportTypes();
   }
 
   handleSort(sort) {
@@ -37,7 +42,7 @@ class ReportTable extends Component {
   }
 
   render() {
-    const { reports, reportTypes } = this.props;
+    const { reports, reportTypes, getReports } = this.props;
 
     return (
       <Table striped bordered condensed hover className="report-table">
@@ -59,7 +64,9 @@ class ReportTable extends Component {
             <ReportTableItem
               key={report.id}
               report={report}
+              reports={reports}
               reportTypes={reportTypes}
+              getReports={getReports}
             />
           ))
           }

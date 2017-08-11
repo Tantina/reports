@@ -8,9 +8,19 @@ import { removeReport } from '../../actions';
 import { host } from '../../constants/host';
 
 const ReportTableItem = (props) => {
-  const { id, name, submitTime, type, reportMetadata, status, reportTypes } = props.report;
-  const reportType = reportTypes.find(item => item.type === type).name;
+  const { id, name, submitTime, type, reportMetadata, status } = props.report;
+  const reportType = props.reportTypes.find(item => item.type === type).name;
   const date = submitTime.split(/\s/)[0];
+
+  const handleClickRemoveBtn = () => {
+    const { page, limit, sort, order, count } = props.reports;
+    props.removeReport(id).then(() => {
+      if (count > limit) {
+        props.getReports(page, limit, sort, order);
+      }
+    }
+    );
+  };
   return (
     <tr>
       <td className="report-table__item">{id}</td>
@@ -38,7 +48,7 @@ const ReportTableItem = (props) => {
         <Button
           bsStyle="link"
           className="delete-link"
-          onClick={() => props.removeReport(id)}
+          onClick={handleClickRemoveBtn}
         >Delete
         </Button>
       </td>
@@ -48,7 +58,9 @@ const ReportTableItem = (props) => {
 
 ReportTableItem.propTypes = {
   report: PropTypes.object.isRequired,
-  removeReport: PropTypes.func.isRequired
+  reportTypes: PropTypes.array.isRequired,
+  removeReport: PropTypes.func.isRequired,
+  reports: PropTypes.object.isRequired
 };
 
 export default connect(null, { removeReport })(ReportTableItem);
