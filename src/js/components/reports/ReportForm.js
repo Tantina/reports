@@ -93,7 +93,7 @@ class ReportForm extends Component {
     e.preventDefault();
     const { addReport } = this.props;
     const { type, access, name, email, emails } = this.state;
-    const report = { type, access, name, email, emails: emails.split(/[\s,]+/) };
+    const report = { type, access, name, email, emails: emails ? emails.split(/[\s,]+/) : [] };
     addReport(report);
   }
 
