@@ -41,16 +41,6 @@
       "id": 40
     },
     {
-      "type": "session-level",
-      "access": "group3",
-      "name": "Test",
-      "email": "tankurenkova@gmail.com",
-      "emails": [
-        "tat@mail.con"
-      ],
-      "id": 43
-    },
-    {
       "type": "aggregate-user",
       "access": "group1",
       "name": "sdf",
@@ -140,14 +130,6 @@
     {
       "type": "aggregate-access",
       "access": "group1",
-      "name": "fsd",
-      "email": "",
-      "emails": [],
-      "id": 145
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
       "name": "her",
       "email": "her@mail.ru",
       "emails": [
@@ -227,6 +209,38 @@
         "sdfsd@mail.com"
       ],
       "id": 156
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "dfg",
+      "email": "fgd@mail.ru",
+      "emails": [
+        ""
+      ],
+      "id": 157
+    },
+    {
+      "type": "aggregate-user",
+      "access": "group2",
+      "name": "fsd",
+      "email": "sf@mail.ru",
+      "emails": [
+        "sdfsf@mail.er",
+        "sdf@mail.ir"
+      ],
+      "id": 158
+    },
+    {
+      "type": "aggregate-user",
+      "access": "group2",
+      "name": "fsd",
+      "email": "sf@mail.ru",
+      "emails": [
+        "sdfsf@mail.er",
+        "sdf@mail.ir"
+      ],
+      "id": 159
     }
   ]
 }

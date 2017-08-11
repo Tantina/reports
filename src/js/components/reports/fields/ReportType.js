@@ -10,6 +10,7 @@ const ReportType = (props) => {
       <ControlLabel>Report Type</ControlLabel>
       { ReportTypes.map(reportType => (
         <Radio
+          key={reportType.type}
           name="radioGroup"
           value={reportType.type}
           checked={type === reportType.type}
