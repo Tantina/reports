@@ -1,38 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, Radio } from 'react-bootstrap';
+import { ReportTypes } from '../../../constants/ReportTypes';
 
 const ReportType = (props) => {
   const { type, onChange } = props;
   return (
     <FormGroup controlId="formControlsRadio">
       <ControlLabel>Report Type</ControlLabel>
-      <Radio
-        name="radioGroup"
-        value="aggregate-access"
-        checked={type === 'aggregate-access'}
-        onChange={onChange}
-      >
-        Lesson Aggregate Access Data Report
-      </Radio>
-      {' '}
-      <Radio
-        name="radioGroup"
-        value="session-level"
-        checked={type === 'session-level'}
-        onChange={onChange}
-      >
-        Session Level Data Report
-      </Radio>
-      {' '}
-      <Radio
-        name="radioGroup"
-        value="aggregate-user"
-        checked={type === 'aggregate-user'}
-        onChange={onChange}
-      >
-        Lesson Aggregate User Performance Data Report
-      </Radio>
+      { ReportTypes.map(reportType => (
+        <Radio
+          name="radioGroup"
+          value={reportType.type}
+          checked={type === reportType.type}
+          onChange={onChange}
+        >
+          {reportType.name}
+        </Radio>
+      ))
+      }
     </FormGroup>
   );
 };
