@@ -4,15 +4,25 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { Table } from 'react-bootstrap';
 import ReportTableItem from './ReportTableItem';
-import { getReportTypes } from '../../actions';
+import { getReportTypes, getReportStatus } from '../../actions';
+
+import { IN_PROGRESS, PENDING } from '../../constants/ReportStatuses';
 
 
 class ReportTable extends Component {
   componentDidMount() {
     const { getReportTypes, reportTypes } = this.props;
-    this.getReportList();
+    this.getReportList().then(() => this.setReportStatuses());
 
     if (!reportTypes.length) getReportTypes();
+  }
+
+  setReportStatuses() {
+    const { getReportStatus, reports } = this.props;
+    const ids = reports.all.filter(report =>
+      report.status === PENDING || report.status === IN_PROGRESS).map(report => report.id);
+    console.log(ids);
+    setInterval(() => getReportStatus(ids), 3000);
   }
 
   getReportList() {
@@ -22,7 +32,7 @@ class ReportTable extends Component {
     const limit = query.get('limit') || reports.limit;
     const sort = query.get('sort') || reports.sort;
     const order = query.get('order') || reports.order;
-    getReports(page, limit, sort, order);
+    return getReports(page, limit, sort, order);
   }
 
   handleSort(sort) {
@@ -81,7 +91,8 @@ ReportTable.propTypes = {
   reports: PropTypes.object.isRequired,
   getReports: PropTypes.func.isRequired,
   reportTypes: PropTypes.array.isRequired,
-  getReportTypes: PropTypes.func.isRequired
+  getReportTypes: PropTypes.func.isRequired,
+  getReportStatus: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -90,4 +101,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getReportTypes })(ReportTable);
+export default connect(mapStateToProps, { getReportTypes, getReportStatus })(ReportTable);

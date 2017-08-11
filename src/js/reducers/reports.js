@@ -38,8 +38,8 @@ export default (state = initialState, action) => {
       return { ...state, all: payload };
     case GET_REPORT_STATUS:
       return { ...state,
-        all: state.all.map(report => (payload.ids.contains(report.id)
-          ? { ...report, status: payload.data.filter(item => item.id === report.id).status }
+        all: state.all.map(report => (payload.ids.includes(report.id)
+          ? { ...report, status: payload.data.find(item => item.id === report.id).status }
           : report))
       };
     default:

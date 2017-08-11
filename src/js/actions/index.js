@@ -96,7 +96,7 @@ export const getReportTypes = () => dispatch =>
     });
 
 export const getReportStatus = ids => dispatch =>
-  axios.get(`${host}/report/statuses`, ids)
+  axios.post(`${host}/report/statuses`, ids)
     .then(result => dispatch({
       type: GET_REPORT_STATUS,
       payload: {

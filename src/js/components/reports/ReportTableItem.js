@@ -28,7 +28,7 @@ const ReportTableItem = (props) => {
       <td className="report-table__item">{date}</td>
       <td className="report-table__item">{reportType}</td>
       <td className="report-table__item">{reportMetadata.accessGroupUUID}</td>
-      <td className="report-table__item">{status.toLowerCase()}</td>
+      <td className="report-table__item">{status}</td>
       <td className="report-table__item report-table__item--action">
         <a
           href={`${host}/report/${id}`}
