@@ -21,8 +21,7 @@ class ReportTable extends Component {
     const { getReportStatus, reports } = this.props;
     const ids = reports.all.filter(report =>
       report.status === PENDING || report.status === IN_PROGRESS).map(report => report.id);
-    console.log(ids);
-    setInterval(() => getReportStatus(ids), 3000);
+    setInterval(() => getReportStatus(ids), 30000);
   }
 
   getReportList() {

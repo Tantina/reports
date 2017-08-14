@@ -9,7 +9,7 @@ import { addReport, clearErrors } from '../../actions';
 import ReportName from './fields/ReportName';
 import ReportEmail from './fields/ReportEmail';
 import ReportType from './fields/ReportType';
-import ReportAccessGroup from './fields/ReportAccessGroup';
+import ReportAccessGroups from './fields/ReportAccessGroups';
 import ReportEmails from './fields/ReportEmails';
 import ReportDateRange from './fields/ReportDateRange';
 import { regexpReportName, regexpEmail } from '../../constants/Regexp';
@@ -23,7 +23,10 @@ class ReportForm extends Component {
       name: '',
       emailTo: '',
       type: 'USER_AGREGATE_ACCESS',
-      access: '3d6b8a9c-6d34-11e7-907b-a6006ad3dba0',
+      access: {
+        guid: '',
+        name: ''
+      },
       emails: '',
       startDate: null,
       endDate: null
@@ -35,12 +38,22 @@ class ReportForm extends Component {
 
     if (id && existedReport) {
       const { name, emailTo, reportMetadata } = existedReport;
-      const { reportType, accessGroupUUID, userEmails, startDate, endDate } = reportMetadata;
+      const {
+        reportType,
+        accessGroupUUID,
+        accessGroupName,
+        userEmails,
+        startDate,
+        endDate
+      } = reportMetadata;
       initialState = {
         name,
         emailTo,
         type: reportType,
-        access: accessGroupUUID,
+        access: {
+          guid: accessGroupUUID,
+          name: accessGroupName
+        },
         emails: userEmails.join(', '),
         startDate: startDate && moment(startDate),
         endDate: endDate && moment(endDate)
@@ -80,9 +93,12 @@ class ReportForm extends Component {
     });
   }
 
-  handleChangeGroup(e) {
+  handleChangeGroup(guid, name) {
     this.setState({
-      access: e.currentTarget.value
+      access: {
+        guid,
+        name
+      }
     });
   }
 
@@ -118,7 +134,8 @@ class ReportForm extends Component {
     const isValidEmails = !emails ? true : emails.split(/[\s,]+/).every(emailTo => (
       regexpEmail.test(emailTo.trim())
     ));
-    const isValidForm = isValidName && isValidEmail && isValidEmails;
+    const isValidAccessGroups = !!access.guid;
+    const isValidForm = isValidName && isValidEmail && isValidEmails && isValidAccessGroups;
 
     const errorBlock = errorMessage ? <Alert bsStyle="danger">{errorMessage}</Alert> : null;
 
@@ -135,9 +152,10 @@ class ReportForm extends Component {
           onChange={e => this.handleChangeType(e)}
         />
 
-        <ReportAccessGroup
+        <ReportAccessGroups
           access={access}
-          onChange={e => this.handleChangeGroup(e)}
+          isValid={isValidAccessGroups}
+          onChangeAccessGroups={(guid, name) => this.handleChangeGroup(guid, name)}
         />
 
         <ReportEmails

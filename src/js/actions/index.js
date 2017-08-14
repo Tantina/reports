@@ -8,6 +8,7 @@ import {
   CREATE_ERROR,
   GET_REPORT_TYPES,
   GET_REPORT_STATUS,
+  GET_REPORT_ACCESS_GROUPS,
   CLEAR_ERROR
 } from '../constants/ActionTypes';
 
@@ -37,7 +38,8 @@ export const getReports = (page, limit, sort, order) => dispatch =>
 export const addReport = data => (dispatch) => {
   const { access, emailTo, endDate, name, type, startDate, emails } = data;
   const query = {
-    accessGroupUUID: access,
+    accessGroupName: access.name,
+    accessGroupUUID: access.guid,
     emailTo,
     endDate,
     lessonUUID: '',
@@ -107,6 +109,20 @@ export const getReportStatus = ids => dispatch =>
     ).catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
+
+export const getReportAccessGroups = name => (dispatch) => {
+  const limit = 10;
+  axios.get(`${host}/accessgroup`, { name, limit })
+    .then(result => dispatch({
+      type: GET_REPORT_ACCESS_GROUPS,
+      payload: {
+        data: result.data
+      }
+    })
+    ).catch((error) => {
+      dispatch({ type: CREATE_ERROR, payload: error.message });
+    });
+};
 
 export const clearErrors = () => dispatch =>
   dispatch({

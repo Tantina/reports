@@ -3,7 +3,8 @@ import {
   ADD_REPORT,
   REMOVE_REPORT,
   SEARCH_REPORT,
-  GET_REPORT_STATUS
+  GET_REPORT_STATUS,
+  GET_REPORT_ACCESS_GROUPS
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -42,6 +43,8 @@ export default (state = initialState, action) => {
           ? { ...report, status: payload.data.find(item => item.id === report.id).status }
           : report))
       };
+    case GET_REPORT_ACCESS_GROUPS:
+      return payload;
     default:
       return state;
   }
