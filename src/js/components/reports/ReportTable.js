@@ -12,16 +12,25 @@ import { IN_PROGRESS, PENDING } from '../../constants/ReportStatuses';
 class ReportTable extends Component {
   componentDidMount() {
     const { getReportTypes, reportTypes } = this.props;
-    this.getReportList().then(() => this.setReportStatuses());
+    this.getReportList();
 
     if (!reportTypes.length) getReportTypes();
+  }
+
+  componentWillUpdate() {
+    this.setReportStatuses();
   }
 
   setReportStatuses() {
     const { getReportStatus, reports } = this.props;
     const ids = reports.all.filter(report =>
       report.status === PENDING || report.status === IN_PROGRESS).map(report => report.id);
-    setInterval(() => getReportStatus(ids), 30000);
+    let timerStatus;
+    if (ids.length) {
+      timerStatus = setInterval(() => getReportStatus(ids), 3000000);
+    } else {
+      clearInterval(timerStatus);
+    }
   }
 
   getReportList() {
@@ -52,7 +61,6 @@ class ReportTable extends Component {
 
   render() {
     const { reports, reportTypes, getReports } = this.props;
-
     return (
       <Table striped bordered condensed hover className="report-table">
         <thead>

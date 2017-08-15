@@ -128,7 +128,6 @@ class ReportForm extends Component {
     const { type, name, emailTo, access, emails, startDate, endDate } = this.state;
     const { errorMessage } = this.props;
 
-
     const isValidName = !!name && regexpReportName.test(name);
     const isValidEmail = !!emailTo && regexpEmail.test(emailTo);
     const isValidEmails = !emails ? true : emails.split(/[\s,]+/).every(emailTo => (

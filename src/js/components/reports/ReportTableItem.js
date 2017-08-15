@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import axios from 'axios';
 
-import { removeReport } from '../../actions';
 import { host } from '../../constants/host';
+import { COMPLETED } from '../../constants/ReportStatuses';
 
 const ReportTableItem = (props) => {
   const { id, name, submitTime, type, reportMetadata, status } = props.report;
@@ -14,7 +14,7 @@ const ReportTableItem = (props) => {
 
   const handleClickRemoveBtn = () => {
     const { page, limit, sort, order, count } = props.reports;
-    props.removeReport(id).then(() => {
+    axios.delete(`${host}/report/${id}`).then(() => {
       if (count > limit) {
         props.getReports(page, limit, sort, order);
       }
@@ -30,12 +30,13 @@ const ReportTableItem = (props) => {
       <td className="report-table__item">{reportMetadata.accessGroupName}</td>
       <td className="report-table__item">{status}</td>
       <td className="report-table__item report-table__item--action">
-        <a
+        <Button
           href={`${host}/report/${id}`}
+          bsStyle="link"
           className="download-link"
-        >
-          download csv
-        </a>
+          disabled={status !== COMPLETED}
+        >download csv
+        </Button>
       </td>
       <td className="report-table__item report-table__item--action">
         <Link
@@ -59,8 +60,7 @@ const ReportTableItem = (props) => {
 ReportTableItem.propTypes = {
   report: PropTypes.object.isRequired,
   reportTypes: PropTypes.array.isRequired,
-  removeReport: PropTypes.func.isRequired,
   reports: PropTypes.object.isRequired
 };
 
-export default connect(null, { removeReport })(ReportTableItem);
+export default ReportTableItem;
