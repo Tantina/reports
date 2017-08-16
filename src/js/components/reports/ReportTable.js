@@ -69,7 +69,7 @@ class ReportTable extends Component {
             <th className="field__sortable" onClick={() => this.handleSort('name')}>Report Name{this.displaySorter('name')}</th>
             <th className="field__sortable" onClick={() => this.handleSort('submitTime')}>Date Run{this.displaySorter('submitTime')}</th>
             <th className="field__sortable" onClick={() => this.handleSort('type')}>Report Type{this.displaySorter('type')}</th>
-            <th>Access Group(s)</th>
+            <th>Access Group</th>
             <th className="field__sortable" onClick={() => this.handleSort('status')}>Status{this.displaySorter('status')}</th>
             <th />
             <th />

@@ -63,14 +63,20 @@ export const addReport = data => (dispatch) => {
     });
 };
 
-export const removeReport = id => dispatch =>
+export const removeReport = (id, isLastPage, callback) => dispatch =>
   axios.delete(`${host}/report/${id}`)
-    .then(() => dispatch({
-      type: REMOVE_REPORT,
-      payload: {
-        id
+    .then(() => {
+      if (isLastPage) {
+        dispatch({
+          type: REMOVE_REPORT,
+          payload: {
+            id
+          }
+        });
+      } else if (callback) {
+        callback();
       }
-    })
+    }
     ).catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
