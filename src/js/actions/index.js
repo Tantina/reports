@@ -56,7 +56,7 @@ export const addReport = data => (dispatch) => {
           data: result.data
         }
       });
-      dispatch(push('/reports?page=1&limit=10&sort=id&order=desc'));
+      dispatch(push('/reports'));
     }
     ).catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });
