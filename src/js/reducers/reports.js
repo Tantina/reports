@@ -10,7 +10,8 @@ const initialState = {
   limit: 10,
   count: 0,
   sort: 'id',
-  order: 'desc'
+  order: 'desc',
+  query: ''
 };
 
 export default (state = initialState, action) => {
@@ -18,8 +19,8 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case GET_REPORTS: {
-      const { page, limit, count, sort, order } = payload;
-      return { ...state, all: payload.data, page, limit, count, sort, order };
+      const { page, limit, count, sort, order, query } = payload;
+      return { ...state, all: payload.data, page, limit, count, sort, order, query };
     }
     case ADD_REPORT:
       return { ...state,

@@ -9,19 +9,20 @@ const { func, object } = PropTypes;
 class ReportTable extends Component {
   componentDidMount() {
     const { getReports, location, reports } = this.props;
-    const query = new URLSearchParams(location.search);
-    const page = query.get('page') || reports.page;
-    const limit = query.get('limit') || reports.limit;
-    const sort = query.get('sort') || reports.sort;
-    const order = query.get('order') || reports.order;
-    getReports(page, limit, sort, order);
+    const params = new URLSearchParams(location.search);
+    const page = params.get('page') || reports.page;
+    const limit = params.get('limit') || reports.limit;
+    const sort = params.get('sort') || reports.sort;
+    const order = params.get('order') || reports.order;
+    const query = params.get('q') || reports.query;
+    getReports(page, limit, sort, order, query);
   }
 
   handleSort = (sort) => {
     const { reports, getReports } = this.props;
     const order = (sort === reports.sort && reports.order === 'asc') ? 'desc' : 'asc';
 
-    getReports(reports.page, reports.limit, sort, order);
+    getReports(reports.page, reports.limit, sort, order, reports.query);
   }
 
   displaySorter = (field) => {

@@ -25,7 +25,8 @@ export const getReports = (page, limit, sort, order, query) => (dispatch) => {
           limit,
           count: result.headers['x-total-count'],
           sort,
-          order
+          order,
+          query
         }
       });
       dispatch(push(`/reports?page=${page}&limit=${limit}&sort=${sort}&order=${order}`));

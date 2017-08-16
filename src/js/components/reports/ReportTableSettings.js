@@ -10,7 +10,7 @@ const ReportTableSettings = (props) => {
   const handleChangeCount = (e) => {
     const { getReports, reports } = props;
     const limit = Number(e.currentTarget.value);
-    getReports(1, limit, reports.sort, reports.order);
+    getReports(1, limit, reports.sort, reports.order, reports.query);
   };
 
   return (

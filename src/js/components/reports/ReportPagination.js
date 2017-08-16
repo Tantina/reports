@@ -9,7 +9,8 @@ const ReportPagination = (props) => {
   const numOfPages = Math.ceil(reports.count / reports.limit);
 
   const handleSelect = (e) => {
-    getReports(e, reports.limit, reports.sort, reports.order);
+    const { limit, sort, order, query } = reports;
+    getReports(e, limit, sort, order, query);
   };
 
   return (
