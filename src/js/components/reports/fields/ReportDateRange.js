@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel } from 'react-bootstrap';
 import { DateRangePicker } from 'react-dates';
 
+const { object, func } = PropTypes;
+
 const ReportDateRange = (props) => {
   const { startDate, endDate, onChange, focusedInput, onFocusChange } = props;
 
@@ -26,11 +28,11 @@ const ReportDateRange = (props) => {
 };
 
 ReportDateRange.propTypes = {
-  startDate: PropTypes.object,
-  endDate: PropTypes.object,
-  onChange: PropTypes.func.isRequired,
+  startDate: object,
+  endDate: object,
+  onChange: func.isRequired,
   focusedInput: PropTypes.oneOf(['startDate', 'endDate']),
-  onFocusChange: PropTypes.func.isRequired
+  onFocusChange: func.isRequired
 };
 
 ReportDateRange.defaultProps = {

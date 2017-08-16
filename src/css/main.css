@@ -50,3 +50,9 @@ table.report-table {
     color: #a22d30;
   }
 }
+
+.autosuggest {
+  a {
+    cursor: pointer;
+  }
+}

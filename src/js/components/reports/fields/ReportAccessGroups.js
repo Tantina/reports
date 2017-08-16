@@ -5,10 +5,12 @@ import { FormGroup, ControlLabel } from 'react-bootstrap';
 import Autosuggest from 'react-autosuggest';
 import { host } from '../../../constants/host';
 
+const { object, bool, func } = PropTypes;
+
 const getSuggestionValue = suggestion => suggestion.name;
 
 const renderSuggestion = suggestion => (
-  <a href="#">{suggestion.name}</a>
+  <a>{suggestion.name}</a>
 );
 
 class ReportAccessGroups extends Component {
@@ -90,9 +92,9 @@ class ReportAccessGroups extends Component {
 }
 
 ReportAccessGroups.propTypes = {
-  access: PropTypes.object.isRequired,
-  isValid: PropTypes.bool.isRequired,
-  onChangeAccessGroups: PropTypes.func.isRequired
+  access: object.isRequired,
+  isValid: bool.isRequired,
+  onChangeAccessGroups: func.isRequired
 };
 
 export default ReportAccessGroups;

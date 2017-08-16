@@ -14,6 +14,7 @@ import ReportEmails from './fields/ReportEmails';
 import ReportDateRange from './fields/ReportDateRange';
 import { regexpReportName, regexpEmail } from '../../constants/Regexp';
 
+const { string, func, object } = PropTypes;
 
 class ReportForm extends Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class ReportForm extends Component {
         startDate,
         endDate
       } = reportMetadata;
+
       initialState = {
         name,
         emailTo,
@@ -61,39 +63,37 @@ class ReportForm extends Component {
     }
 
     this.state = initialState;
-
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillUnmount() {
     this.props.clearErrors();
   }
 
-  handleChangeName(e) {
+  handleChangeName = (e) => {
     this.setState({
       name: e.currentTarget.value
     });
   }
 
-  handleChangeEmail(e) {
+  handleChangeEmail = (e) => {
     this.setState({
       emailTo: e.currentTarget.value
     });
   }
 
-  handleChangeEmails(e) {
+  handleChangeEmails = (e) => {
     this.setState({
       emails: e.currentTarget.value
     });
   }
 
-  handleChangeType(e) {
+  handleChangeType = (e) => {
     this.setState({
       type: e.currentTarget.value
     });
   }
 
-  handleChangeGroup(guid, name) {
+  handleChangeGroup = (guid, name) => {
     this.setState({
       access: {
         guid,
@@ -102,14 +102,14 @@ class ReportForm extends Component {
     });
   }
 
-  handleDateChange({ startDate, endDate }) {
+  handleDateChange = ({ startDate, endDate }) => {
     this.setState({
       startDate,
       endDate
     });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { addReport } = this.props;
     const { type, access, name, startDate, endDate, emailTo, emails } = this.state;
@@ -143,12 +143,12 @@ class ReportForm extends Component {
         <ReportName
           name={name}
           isValid={isValidName}
-          onChange={e => this.handleChangeName(e)}
+          onChange={this.handleChangeName}
         />
 
         <ReportType
           type={type}
-          onChange={e => this.handleChangeType(e)}
+          onChange={this.handleChangeType}
         />
 
         <ReportAccessGroups
@@ -160,7 +160,7 @@ class ReportForm extends Component {
         <ReportEmails
           emails={emails}
           isValid={isValidEmails}
-          onChange={e => this.handleChangeEmails(e)}
+          onChange={this.handleChangeEmails}
         />
 
         <ReportDateRange
@@ -174,7 +174,7 @@ class ReportForm extends Component {
         <ReportEmail
           email={emailTo}
           isValid={isValidEmail}
-          onChange={e => this.handleChangeEmail(e)}
+          onChange={this.handleChangeEmail}
         />
 
         {errorBlock}
@@ -188,11 +188,11 @@ class ReportForm extends Component {
 }
 
 ReportForm.propTypes = {
-  addReport: PropTypes.func.isRequired,
-  reports: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  clearErrors: PropTypes.func.isRequired,
-  errorMessage: PropTypes.string.isRequired
+  addReport: func.isRequired,
+  reports: object.isRequired,
+  location: object.isRequired,
+  clearErrors: func.isRequired,
+  errorMessage: string.isRequired
 };
 
 function mapStateToProps(state) {

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormControl } from 'react-bootstrap';
 
+const { func } = PropTypes;
+
 const ReportSearch = props => (
   <FormControl
     type="text"
@@ -11,7 +13,7 @@ const ReportSearch = props => (
 );
 
 ReportSearch.propTypes = {
-  searchReport: PropTypes.func.isRequired
+  searchReport: func.isRequired
 };
 
 export default ReportSearch;

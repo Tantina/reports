@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import FieldGroup from '../../form-fields/FieldGroup';
 
+const { string, bool, func } = PropTypes;
+
 const ReportEmail = (props) => {
   const { email, onChange, isValid } = props;
 
@@ -20,9 +22,9 @@ const ReportEmail = (props) => {
 };
 
 ReportEmail.propTypes = {
-  email: PropTypes.string.isRequired,
-  isValid: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  email: string.isRequired,
+  isValid: bool.isRequired,
+  onChange: func.isRequired
 };
 
 export default ReportEmail;

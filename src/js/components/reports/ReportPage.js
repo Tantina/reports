@@ -9,6 +9,7 @@ import ReportTableSettings from './ReportTableSettings';
 
 import { getReports, clearErrors } from '../../actions';
 
+const { string, func } = PropTypes;
 
 class ReportPage extends Component {
   componentWillUnmount() {
@@ -31,8 +32,8 @@ class ReportPage extends Component {
 }
 
 ReportPage.propTypes = {
-  errorMessage: PropTypes.string.isRequired,
-  clearErrors: PropTypes.func.isRequired
+  errorMessage: string.isRequired,
+  clearErrors: func.isRequired
 };
 
 function mapStateToProps(state) {

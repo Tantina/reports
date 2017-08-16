@@ -5,6 +5,8 @@ import { FormGroup, ControlLabel, Radio } from 'react-bootstrap';
 
 import { getReportTypes } from '../../../actions';
 
+const { string, array, func } = PropTypes;
+
 class ReportType extends Component {
   componentDidMount() {
     const { getReportTypes, reportTypes } = this.props;
@@ -34,10 +36,10 @@ class ReportType extends Component {
 
 
 ReportType.propTypes = {
-  type: PropTypes.string.isRequired,
-  reportTypes: PropTypes.array.isRequired,
-  getReportTypes: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired
+  type: string.isRequired,
+  reportTypes: array.isRequired,
+  getReportTypes: func.isRequired,
+  onChange: func.isRequired
 };
 
 function mapStateToProps(state) {

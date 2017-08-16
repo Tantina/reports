@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
+const { string, bool, func } = PropTypes;
+
 const FieldGroup = (props) => {
   const { id, label, help, type, value, onChange, isValid } = props;
 
@@ -15,13 +17,13 @@ const FieldGroup = (props) => {
 };
 
 FieldGroup.propTypes = {
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  help: PropTypes.string,
-  value: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  isValid: PropTypes.bool,
-  onChange: PropTypes.func.isRequired
+  id: string.isRequired,
+  label: string,
+  help: string,
+  value: string.isRequired,
+  type: string.isRequired,
+  isValid: bool,
+  onChange: func.isRequired
 };
 
 FieldGroup.defaultProps = {

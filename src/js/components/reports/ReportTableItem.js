@@ -8,6 +8,8 @@ import { removeReport } from '../../actions';
 import { host } from '../../constants/host';
 import { COMPLETED } from '../../constants/ReportStatuses';
 
+const { array, func, object } = PropTypes;
+
 const ReportTableItem = (props) => {
   const { id, name, submitTime, type, reportMetadata, status } = props.report;
   const reportType = props.reportTypes.find(item => item.type === type).name;
@@ -60,10 +62,10 @@ const ReportTableItem = (props) => {
 };
 
 ReportTableItem.propTypes = {
-  report: PropTypes.object.isRequired,
-  reportTypes: PropTypes.array.isRequired,
-  removeReport: PropTypes.func.isRequired,
-  reports: PropTypes.object.isRequired
+  report: object.isRequired,
+  reportTypes: array.isRequired,
+  removeReport: func.isRequired,
+  reports: object.isRequired
 };
 
 export default connect(null, { removeReport })(ReportTableItem);

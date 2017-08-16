@@ -8,6 +8,7 @@ import { getReportTypes, getReportStatus } from '../../actions';
 
 import { IN_PROGRESS, PENDING } from '../../constants/ReportStatuses';
 
+const { array, func, object } = PropTypes;
 
 class ReportTable extends Component {
   componentDidMount() {
@@ -26,7 +27,7 @@ class ReportTable extends Component {
     clearInterval(this.timerStatus);
   }
 
-  setReportStatuses() {
+  setReportStatuses = () => {
     const { getReportStatus, reports } = this.props;
     const ids = reports.all.filter(report =>
       report.status === PENDING || report.status === IN_PROGRESS).map(report => report.id);
@@ -36,7 +37,7 @@ class ReportTable extends Component {
     }
   }
 
-  getReportList() {
+  getReportList = () => {
     const { getReports, location, reports } = this.props;
     const query = new URLSearchParams(location.search);
     const page = query.get('page') || reports.page;
@@ -46,14 +47,14 @@ class ReportTable extends Component {
     return getReports(page, limit, sort, order);
   }
 
-  handleSort(sort) {
+  handleSort = (sort) => {
     const { reports, getReports } = this.props;
     const order = (sort === reports.sort && reports.order === 'asc') ? 'desc' : 'asc';
 
     getReports(reports.page, reports.limit, sort, order);
   }
 
-  displaySorter(field) {
+  displaySorter = (field) => {
     const { reports } = this.props;
     const className = classNames('glyphicon', 'sorter-icon', {
       'glyphicon-triangle-top': reports.order === 'asc',
@@ -97,12 +98,12 @@ class ReportTable extends Component {
 }
 
 ReportTable.propTypes = {
-  location: PropTypes.object.isRequired,
-  reports: PropTypes.object.isRequired,
-  getReports: PropTypes.func.isRequired,
-  reportTypes: PropTypes.array.isRequired,
-  getReportTypes: PropTypes.func.isRequired,
-  getReportStatus: PropTypes.func.isRequired
+  location: object.isRequired,
+  reports: object.isRequired,
+  getReports: func.isRequired,
+  reportTypes: array.isRequired,
+  getReportTypes: func.isRequired,
+  getReportStatus: func.isRequired
 };
 
 function mapStateToProps(state) {
