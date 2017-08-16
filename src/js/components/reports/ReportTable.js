@@ -17,19 +17,22 @@ class ReportTable extends Component {
     if (!reportTypes.length) getReportTypes();
   }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
+    clearInterval(this.timerStatus);
     this.setReportStatuses();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerStatus);
   }
 
   setReportStatuses() {
     const { getReportStatus, reports } = this.props;
     const ids = reports.all.filter(report =>
       report.status === PENDING || report.status === IN_PROGRESS).map(report => report.id);
-    let timerStatus;
+
     if (ids.length) {
-      timerStatus = setInterval(() => getReportStatus(ids), 3000000);
-    } else {
-      clearInterval(timerStatus);
+      this.timerStatus = setInterval(() => getReportStatus(ids), 10000);
     }
   }
 

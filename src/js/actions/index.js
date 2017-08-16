@@ -63,10 +63,10 @@ export const addReport = data => (dispatch) => {
     });
 };
 
-export const removeReport = (id, isLastPage, callback) => dispatch =>
+export const removeReport = (id, shouldRemoveFromState, callback) => dispatch =>
   axios.delete(`${host}/report/${id}`)
     .then(() => {
-      if (isLastPage) {
+      if (shouldRemoveFromState) {
         dispatch({
           type: REMOVE_REPORT,
           payload: {
