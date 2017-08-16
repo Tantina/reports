@@ -14,7 +14,7 @@ let nextReport = 0;
 const count = 30; // Should be return by server
 
 
-export const getReports = (page, limit, sort, order) => dispatch =>
+export const getReports = (page, limit, sort, order, query) => dispatch =>
   axios.get(`http://localhost:3000/report?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`)
     .then((result) => {
       dispatch({

@@ -9,6 +9,17 @@ import { ReportTypes } from '../../constants/ReportTypes';
 const ReportTableItem = (props) => {
   const { id, name, date, type, access, status } = props.report;
   const reportType = ReportTypes.find(item => item.type === type).name;
+
+  const handleClickRemoveBtn = () => {
+    const { page, limit, sort, order, count, all } = props.reports;
+    const pageNumer = (all.length === 1 && page !== 1) ? page - 1 : page;
+    props.removeReport(id).then(() => {
+      if (count > limit) {
+        props.getReports(pageNumer, limit, sort, order);
+      }
+    });
+  };
+
   return (
     <tr>
       <td className="report-table__item">{id}</td>
@@ -28,7 +39,7 @@ const ReportTableItem = (props) => {
         <Button
           bsStyle="link"
           className="delete-link"
-          onClick={() => props.removeReport(id)}
+          onClick={handleClickRemoveBtn}
         >Delete
         </Button>
       </td>
@@ -38,7 +49,8 @@ const ReportTableItem = (props) => {
 
 ReportTableItem.propTypes = {
   report: PropTypes.object.isRequired,
-  removeReport: PropTypes.func.isRequired
+  removeReport: PropTypes.func.isRequired,
+  reports: PropTypes.object.isRequired
 };
 
 export default ReportTableItem;

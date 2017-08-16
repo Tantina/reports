@@ -12,17 +12,19 @@ const ReportPagination = (props) => {
   };
 
   return (
-    <Pagination
-      prev
-      next
-      first
-      last
-      ellipsis
-      boundaryLinks
-      items={numOfPages}
-      activePage={Number(reports.page)}
-      onSelect={e => handleSelect(e)}
-    />
+    numOfPages > 1 ?
+      <Pagination
+        prev
+        next
+        first
+        last
+        ellipsis
+        boundaryLinks
+        items={numOfPages}
+        activePage={Number(reports.page)}
+        onSelect={e => handleSelect(e)}
+      /> : null
+
   );
 };
 

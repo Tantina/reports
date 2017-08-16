@@ -33,7 +33,7 @@ class ReportTable extends Component {
   }
 
   render() {
-    const { reports, removeReport } = this.props;
+    const { reports, removeReport, getReports } = this.props;
 
     return (
       <Table striped bordered condensed hover className="report-table">
@@ -55,6 +55,8 @@ class ReportTable extends Component {
               key={report.id}
               report={report}
               removeReport={removeReport}
+              reports={reports}
+              getReports={getReports}
             />
           ))
           }
