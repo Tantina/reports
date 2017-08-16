@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 
 import { ReportTypes } from '../../constants/ReportTypes';
 
+const { func, object } = PropTypes;
 
 const ReportTableItem = (props) => {
   const { id, name, date, type, access, status } = props.report;
@@ -48,9 +49,9 @@ const ReportTableItem = (props) => {
 };
 
 ReportTableItem.propTypes = {
-  report: PropTypes.object.isRequired,
-  removeReport: PropTypes.func.isRequired,
-  reports: PropTypes.object.isRequired
+  report: object.isRequired,
+  removeReport: func.isRequired,
+  reports: object.isRequired
 };
 
 export default ReportTableItem;

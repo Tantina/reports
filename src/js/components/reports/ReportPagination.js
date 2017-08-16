@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Pagination } from 'react-bootstrap';
 
+const { func, object } = PropTypes;
+
 const ReportPagination = (props) => {
-  const { reports } = props;
+  const { reports, getReports } = props;
   const numOfPages = Math.ceil(reports.count / reports.limit);
 
-  const handleSelect = (eventKey) => {
-    const { reports, getReports } = props;
-    getReports(eventKey, reports.limit, reports.sort, reports.order);
+  const handleSelect = (e) => {
+    getReports(e, reports.limit, reports.sort, reports.order);
   };
 
   return (
@@ -22,15 +23,15 @@ const ReportPagination = (props) => {
         boundaryLinks
         items={numOfPages}
         activePage={Number(reports.page)}
-        onSelect={e => handleSelect(e)}
+        onSelect={handleSelect}
       /> : null
 
   );
 };
 
 ReportPagination.propTypes = {
-  getReports: PropTypes.func.isRequired,
-  reports: PropTypes.object.isRequired
+  getReports: func.isRequired,
+  reports: object.isRequired
 };
 
 export default ReportPagination;

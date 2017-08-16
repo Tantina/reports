@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ReportTableItem from './ReportTableItem';
 
+const { func, object } = PropTypes;
 
 class ReportTable extends Component {
   componentDidMount() {
@@ -16,14 +17,14 @@ class ReportTable extends Component {
     getReports(page, limit, sort, order);
   }
 
-  handleSort(sort) {
+  handleSort = (sort) => {
     const { reports, getReports } = this.props;
     const order = (sort === reports.sort && reports.order === 'asc') ? 'desc' : 'asc';
 
     getReports(reports.page, reports.limit, sort, order);
   }
 
-  displaySorter(field) {
+  displaySorter = (field) => {
     const { reports } = this.props;
     const className = classNames('glyphicon', 'sorter-icon', {
       'glyphicon-triangle-top': reports.order === 'asc',
@@ -67,10 +68,10 @@ class ReportTable extends Component {
 }
 
 ReportTable.propTypes = {
-  location: PropTypes.object.isRequired,
-  reports: PropTypes.object.isRequired,
-  getReports: PropTypes.func.isRequired,
-  removeReport: PropTypes.func.isRequired
+  location: object.isRequired,
+  reports: object.isRequired,
+  getReports: func.isRequired,
+  removeReport: func.isRequired
 };
 
 export default ReportTable;

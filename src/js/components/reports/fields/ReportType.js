@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, Radio } from 'react-bootstrap';
 import { ReportTypes } from '../../../constants/ReportTypes';
 
+const { string, func } = PropTypes;
+
 const ReportType = (props) => {
   const { type, onChange } = props;
   return (
@@ -25,8 +27,8 @@ const ReportType = (props) => {
 };
 
 ReportType.propTypes = {
-  type: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  type: string.isRequired,
+  onChange: func.isRequired
 };
 
 export default ReportType;

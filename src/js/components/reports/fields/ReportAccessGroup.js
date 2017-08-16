@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
+const { string, func } = PropTypes;
+
 const ReportAccessGroup = (props) => {
   const { access, onChange } = props;
   return (
@@ -22,8 +24,8 @@ const ReportAccessGroup = (props) => {
 };
 
 ReportAccessGroup.propTypes = {
-  access: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  access: string.isRequired,
+  onChange: func.isRequired
 };
 
 export default ReportAccessGroup;

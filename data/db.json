@@ -3,14 +3,6 @@
     {
       "type": "aggregate-access",
       "access": "group1",
-      "name": "sdf",
-      "email": "sdfsdf@mail.com",
-      "emails": [],
-      "id": 140
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
       "name": "her",
       "email": "her@mail.ru",
       "emails": [
@@ -68,26 +60,10 @@
     {
       "type": "aggregate-access",
       "access": "group1",
-      "name": "zxc",
-      "email": "dsf@mail.ru",
-      "emails": [],
-      "id": 165
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
       "name": "gffg",
       "email": "dg@mail.ru",
       "emails": [],
       "id": 166
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "zxc",
-      "email": "dsf@mail.ru",
-      "emails": [],
-      "id": 167
     },
     {
       "type": "aggregate-access",
@@ -136,6 +112,14 @@
       "email": "dsf@mail.ru",
       "emails": [],
       "id": 173
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "sdf",
+      "email": "sdfsdf@mail.com",
+      "emails": [],
+      "id": 174
     }
   ]
 }

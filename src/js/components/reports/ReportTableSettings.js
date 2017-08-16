@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormControl } from 'react-bootstrap';
 
+const { func, object } = PropTypes;
 
 const ReportTableSettings = (props) => {
   const { reports } = props;
@@ -20,7 +21,7 @@ const ReportTableSettings = (props) => {
         componentClass="select"
         placeholder="select"
         value={reports.limit}
-        onChange={e => handleChangeCount(e)}
+        onChange={handleChangeCount}
       >
         <option value="10">10</option>
         <option value="15">15</option>
@@ -31,8 +32,8 @@ const ReportTableSettings = (props) => {
 };
 
 ReportTableSettings.propTypes = {
-  reports: PropTypes.object.isRequired,
-  getReports: PropTypes.func.isRequired
+  reports: object.isRequired,
+  getReports: func.isRequired
 };
 
 export default ReportTableSettings;

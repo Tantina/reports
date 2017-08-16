@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
+const { string, bool, func } = PropTypes;
 
 const ReportEmails = (props) => {
   const { emails, isValid, onChange } = props;
@@ -20,9 +21,9 @@ const ReportEmails = (props) => {
 };
 
 ReportEmails.propTypes = {
-  emails: PropTypes.string.isRequired,
-  isValid: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  emails: string.isRequired,
+  isValid: bool.isRequired,
+  onChange: func.isRequired
 };
 
 export default ReportEmails;
