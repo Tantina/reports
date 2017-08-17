@@ -1,23 +1,24 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import ReportPage from './components/reports/ReportPage';
-import ReportForm from './components/reports/ReportForm';
+/*eslint-disable */
+import LoadReportPage from 'bundle-loader?lazy!./components/reports/ReportPage';
+import LoadReportForm from 'bundle-loader?lazy!./components/reports/ReportForm';
+/*eslint-enable */
+import Bundle from './components/common/Bundle';
 
-// const componentRoutes = {
-//   component: Home,
-//   path: '/',
-//   indexRoute: { component: ReportTable },
-//   childRoutes: [
-//     {
-//       path: 'reports/new',
-//       getComponent(location, cb) {
-//         System.import('./components/ReportList')
-//           .then(module => cb(null, module.default));
-//       }
-//     }
-//   ]
-// };
+
+const ReportPage = props => (
+  <Bundle load={LoadReportPage}>
+    {ReportPage => <ReportPage {...props} />}
+  </Bundle>
+);
+
+const ReportForm = props => (
+  <Bundle load={LoadReportForm}>
+    {ReportForm => <ReportForm {...props} />}
+  </Bundle>
+);
 
 const Routes = () => (
   <div className="container">
