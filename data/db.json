@@ -3,87 +3,6 @@
     {
       "type": "aggregate-access",
       "access": "group1",
-      "name": "her",
-      "email": "her@mail.ru",
-      "emails": [
-        "dfgdfg@mail.ru",
-        "sdfsdfs@mail.ru"
-      ],
-      "id": 149
-    },
-    {
-      "type": "aggregate-user",
-      "access": "group3",
-      "name": "The-best-Report",
-      "email": "tankurenkova@gmail.com",
-      "emails": [
-        "t@mail.com",
-        "sdf@mail.fs"
-      ],
-      "id": 150
-    },
-    {
-      "type": "aggregate-user",
-      "access": "group2",
-      "name": "fsd",
-      "email": "sf@mail.ru",
-      "emails": [
-        "sdfsf@mail.er",
-        "sdf@mail.ir"
-      ],
-      "id": 158
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "gd",
-      "email": "dfg@mail.ru",
-      "emails": [],
-      "id": 162
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "fgdf",
-      "email": "dfg@mail.ru",
-      "emails": [],
-      "id": 163
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "dgdfg",
-      "email": "fsdfsd@mail.ru",
-      "emails": [],
-      "id": 164
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "gffg",
-      "email": "dg@mail.ru",
-      "emails": [],
-      "id": 166
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "zxc",
-      "email": "dsf@mail.ru",
-      "emails": [],
-      "id": 168
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "zxc",
-      "email": "dsf@mail.ru",
-      "emails": [],
-      "id": 169
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
       "name": "zxc",
       "email": "dsf@mail.ru",
       "emails": [],
@@ -95,31 +14,71 @@
       "name": "zxc",
       "email": "dsf@mail.ru",
       "emails": [],
-      "id": 171
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "zxc",
-      "email": "dsf@mail.ru",
-      "emails": [],
-      "id": 172
-    },
-    {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "zxc",
-      "email": "dsf@mail.ru",
-      "emails": [],
       "id": 173
     },
     {
-      "type": "aggregate-access",
-      "access": "group1",
-      "name": "sdf",
-      "email": "sdfsdf@mail.com",
+      "type": "aggregate-user",
+      "access": "group3",
+      "name": "fdg",
+      "email": "fds@mail.ru",
       "emails": [],
       "id": 174
+    },
+    {
+      "type": "aggregate-user",
+      "access": "group3",
+      "name": "fdg",
+      "email": "fds@mail.ru",
+      "emails": [],
+      "id": 175
+    },
+    {
+      "type": "aggregate-user",
+      "access": "group3",
+      "name": "fdg",
+      "email": "fds@mail.ru",
+      "emails": [],
+      "id": 176
+    },
+    {
+      "type": "aggregate-user",
+      "access": "group3",
+      "name": "fdg",
+      "email": "fds@mail.ru",
+      "emails": [],
+      "id": 177
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "zxc",
+      "email": "dsf@mail.ru",
+      "emails": [],
+      "id": 178
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "zxc",
+      "email": "dsf@mail.ru",
+      "emails": [],
+      "id": 179
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "zxc",
+      "email": "dsf@mail.ru",
+      "emails": [],
+      "id": 180
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "fdg",
+      "email": "dfg@mail.ru",
+      "emails": [],
+      "id": 181
     }
   ]
 }

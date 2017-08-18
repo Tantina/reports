@@ -20,7 +20,6 @@ export const getReports = (page, limit, sort, order, query) => (dispatch) => {
   const q = query ? `&q=${query}` : '';
   axios.get(`${host}/report?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}${q}`)
     .then((result) => {
-      dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({
         type: GET_REPORTS,
         payload: {
@@ -33,6 +32,7 @@ export const getReports = (page, limit, sort, order, query) => (dispatch) => {
           query
         }
       });
+      dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch(push(`/reports?page=${page}&limit=${limit}&sort=${sort}&order=${order}`));
     }
     ).catch((error) => {
@@ -73,7 +73,7 @@ export const addReport = data => (dispatch) => {
 
 export const removeReport = id => (dispatch) => {
   dispatch({ type: CREATE_LOADER, payload: true });
-  axios.delete(`${host}/report/${id}`)
+  return axios.delete(`${host}/report/${id}`)
     .then(() => {
       dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({
@@ -82,7 +82,6 @@ export const removeReport = id => (dispatch) => {
       });
     }
     ).catch((error) => {
-      dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 };
