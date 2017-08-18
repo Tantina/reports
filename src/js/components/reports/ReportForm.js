@@ -13,7 +13,7 @@ import ReportEmails from './fields/ReportEmails';
 import ReportDateRange from './fields/ReportDateRange';
 import { regexpReportName, regexpEmail } from '../../constants/Regexp';
 
-const { string, func, object } = PropTypes;
+const { string, func, object, bool } = PropTypes;
 
 class ReportForm extends Component {
   constructor(props) {
@@ -28,7 +28,6 @@ class ReportForm extends Component {
       startDate: null,
       endDate: null
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -90,7 +89,7 @@ class ReportForm extends Component {
     });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { addReport } = this.props;
     const { type, access, name, email, emails } = this.state;
@@ -100,7 +99,7 @@ class ReportForm extends Component {
 
   render() {
     const { type, name, email, access, emails, startDate, endDate } = this.state;
-    const { errorMessage } = this.props;
+    const { errorMessage, loader } = this.props;
 
 
     const isValidName = !!name && regexpReportName.test(name);
@@ -114,47 +113,50 @@ class ReportForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <ReportName
-          name={name}
-          isValid={isValidName}
-          onChange={this.handleChangeName}
-        />
+        <fieldset disabled={loader}>
+          <ReportName
+            name={name}
+            isValid={isValidName}
+            onChange={this.handleChangeName}
+          />
 
-        <ReportType
-          type={type}
-          onChange={this.handleChangeType}
-        />
+          <ReportType
+            type={type}
+            onChange={this.handleChangeType}
+          />
 
-        <ReportAccessGroup
-          access={access}
-          onChange={this.handleChangeGroup}
-        />
+          <ReportAccessGroup
+            access={access}
+            onChange={this.handleChangeGroup}
+          />
 
-        <ReportEmails
-          emails={emails}
-          isValid={isValidEmails}
-          onChange={this.handleChangeEmails}
-        />
+          <ReportEmails
+            emails={emails}
+            isValid={isValidEmails}
+            onChange={this.handleChangeEmails}
+          />
 
-        <ReportDateRange
-          startDate={startDate}
-          endDate={endDate}
-          onChange={({ startDate, endDate }) => this.handleDateChange({ startDate, endDate })}
-          focusedInput={this.state.focusedInput}
-          onFocusChange={focusedInput => this.setState({ focusedInput })}
-        />
+          <ReportDateRange
+            startDate={startDate}
+            endDate={endDate}
+            onChange={({ startDate, endDate }) => this.handleDateChange({ startDate, endDate })}
+            focusedInput={this.state.focusedInput}
+            onFocusChange={focusedInput => this.setState({ focusedInput })}
+          />
 
-        <ReportEmail
-          email={email}
-          isValid={isValidEmail}
-          onChange={this.handleChangeEmail}
-        />
+          <ReportEmail
+            email={email}
+            isValid={isValidEmail}
+            onChange={this.handleChangeEmail}
+          />
 
-        {errorBlock}
+          {errorBlock}
 
-        <Button bsStyle="primary" type="submit" disabled={!isValidForm}>
-          Submit
-        </Button>
+          <Button bsStyle="primary" type="submit" disabled={!isValidForm}>
+            {loader ? <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate" /> : null }
+            {loader ? 'Loading...' : 'Submit' }
+          </Button>
+        </fieldset>
       </form>
     );
   }
@@ -164,6 +166,7 @@ ReportForm.propTypes = {
   addReport: func.isRequired,
   getReport: func.isRequired,
   location: object.isRequired,
+  loader: bool.isRequired,
   newReport: object.isRequired,
   clearErrors: func.isRequired,
   errorMessage: string.isRequired
@@ -172,7 +175,8 @@ ReportForm.propTypes = {
 function mapStateToProps(state) {
   return {
     newReport: state.newReport,
-    errorMessage: state.errors
+    errorMessage: state.errors,
+    loader: state.loader
   };
 }
 

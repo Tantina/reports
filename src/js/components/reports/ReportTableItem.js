@@ -12,6 +12,7 @@ const ReportTableItem = (props) => {
   const reportType = ReportTypes.find(item => item.type === type).name;
 
   const handleClickRemoveBtn = () => {
+    console.log(props);
     const { page, limit, sort, order, count, all, query } = props.reports;
     const pageNumer = (all.length === 1 && page !== 1) ? page - 1 : page;
     props.removeReport(id).then(() => {

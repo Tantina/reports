@@ -5,3 +5,6 @@ export const GET_REPORT = 'GET_REPORT';
 
 export const CREATE_ERROR = 'CREATE_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
+
+export const CREATE_LOADER = 'CREATE_LOADER';
+export const CLEAR_LOADER = 'CLEAR_LOADER';
