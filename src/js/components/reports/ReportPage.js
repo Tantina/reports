@@ -6,19 +6,21 @@ import { LinkContainer } from 'react-router-bootstrap';
 import ReportTable from './ReportTable';
 import ReportPagination from './ReportPagination';
 import ReportTableSettings from './ReportTableSettings';
+import Loader from '../common/Loader';
 
 import { getReports, clearErrors } from '../../actions';
 
-const { string, func } = PropTypes;
+const { string, func, bool } = PropTypes;
 
 class ReportPage extends Component {
   componentWillUnmount() {
     this.props.clearErrors();
   }
   render() {
-    const { errorMessage } = this.props;
+    const { errorMessage, loader } = this.props;
     return (
       <div className="reports-page">
+        {loader ? <Loader /> : null}
         {errorMessage ? <Alert bsStyle="danger">{errorMessage}</Alert> : null}
         <LinkContainer className="create-report-btn" to="/new">
           <Button>Create</Button>
@@ -33,13 +35,15 @@ class ReportPage extends Component {
 
 ReportPage.propTypes = {
   errorMessage: string.isRequired,
-  clearErrors: func.isRequired
+  clearErrors: func.isRequired,
+  loader: bool.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     reports: state.reports,
-    errorMessage: state.errors
+    errorMessage: state.errors,
+    loader: state.loader
   };
 }
 

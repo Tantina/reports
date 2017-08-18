@@ -14,7 +14,7 @@ import ReportEmails from './fields/ReportEmails';
 import ReportDateRange from './fields/ReportDateRange';
 import { regexpReportName, regexpEmail } from '../../constants/Regexp';
 
-const { string, func, object } = PropTypes;
+const { string, func, object, bool } = PropTypes;
 
 class ReportForm extends Component {
   constructor(props) {
@@ -126,7 +126,7 @@ class ReportForm extends Component {
 
   render() {
     const { type, name, emailTo, access, emails, startDate, endDate } = this.state;
-    const { errorMessage } = this.props;
+    const { errorMessage, loader } = this.props;
 
     const isValidName = !!name && regexpReportName.test(name);
     const isValidEmail = !!emailTo && regexpEmail.test(emailTo);
@@ -140,48 +140,51 @@ class ReportForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <ReportName
-          name={name}
-          isValid={isValidName}
-          onChange={this.handleChangeName}
-        />
+        <fieldset disabled={loader}>
+          <ReportName
+            name={name}
+            isValid={isValidName}
+            onChange={this.handleChangeName}
+          />
 
-        <ReportType
-          type={type}
-          onChange={this.handleChangeType}
-        />
+          <ReportType
+            type={type}
+            onChange={this.handleChangeType}
+          />
 
-        <ReportAccessGroups
-          access={access}
-          isValid={isValidAccessGroups}
-          onChangeAccessGroups={(guid, name) => this.handleChangeGroup(guid, name)}
-        />
+          <ReportAccessGroups
+            access={access}
+            isValid={isValidAccessGroups}
+            onChangeAccessGroups={(guid, name) => this.handleChangeGroup(guid, name)}
+          />
 
-        <ReportEmails
-          emails={emails}
-          isValid={isValidEmails}
-          onChange={this.handleChangeEmails}
-        />
+          <ReportEmails
+            emails={emails}
+            isValid={isValidEmails}
+            onChange={this.handleChangeEmails}
+          />
 
-        <ReportDateRange
-          startDate={startDate}
-          endDate={endDate}
-          onChange={({ startDate, endDate }) => this.handleDateChange({ startDate, endDate })}
-          focusedInput={this.state.focusedInput}
-          onFocusChange={focusedInput => this.setState({ focusedInput })}
-        />
+          <ReportDateRange
+            startDate={startDate}
+            endDate={endDate}
+            onChange={({ startDate, endDate }) => this.handleDateChange({ startDate, endDate })}
+            focusedInput={this.state.focusedInput}
+            onFocusChange={focusedInput => this.setState({ focusedInput })}
+          />
 
-        <ReportEmail
-          email={emailTo}
-          isValid={isValidEmail}
-          onChange={this.handleChangeEmail}
-        />
+          <ReportEmail
+            email={emailTo}
+            isValid={isValidEmail}
+            onChange={this.handleChangeEmail}
+          />
 
-        {errorBlock}
+          {errorBlock}
 
-        <Button bsStyle="primary" type="submit" disabled={!isValidForm}>
-          Submit
-        </Button>
+          <Button bsStyle="primary" type="submit" disabled={!isValidForm}>
+            {loader ? <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate" /> : null }
+            {loader ? 'Loading...' : 'Submit' }
+          </Button>
+        </fieldset>
       </form>
     );
   }
@@ -190,6 +193,7 @@ class ReportForm extends Component {
 ReportForm.propTypes = {
   addReport: func.isRequired,
   reports: object.isRequired,
+  loader: bool.isRequired,
   location: object.isRequired,
   clearErrors: func.isRequired,
   errorMessage: string.isRequired
@@ -198,7 +202,8 @@ ReportForm.propTypes = {
 function mapStateToProps(state) {
   return {
     reports: state.reports,
-    errorMessage: state.errors
+    errorMessage: state.errors,
+    loader: state.loader
   };
 }
 

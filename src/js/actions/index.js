@@ -9,12 +9,15 @@ import {
   GET_REPORT_TYPES,
   GET_REPORT_STATUS,
   GET_REPORT_ACCESS_GROUPS,
-  CLEAR_ERROR
+  CLEAR_ERROR,
+  CREATE_LOADER,
+  CLEAR_LOADER
 } from '../constants/ActionTypes';
 
 import { host } from '../constants/host';
 
-export const getReports = (page, limit, sort, order) => dispatch =>
+export const getReports = (page, limit, sort, order) => (dispatch) => {
+  dispatch({ type: CREATE_LOADER, payload: true });
   axios.get(`${host}/report?page=${page - 1}&size=${limit}&sort=${sort},${order}`)
     .then((result) => {
       const { content, totalElements } = result.data;
@@ -29,11 +32,14 @@ export const getReports = (page, limit, sort, order) => dispatch =>
           order
         }
       });
+      dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch(push(`/reports?page=${page}&limit=${limit}&sort=${sort}&order=${order}`));
     }
     ).catch((error) => {
+      dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
+};
 
 export const addReport = data => (dispatch) => {
   const { access, emailTo, endDate, name, type, startDate, emails } = data;
@@ -48,6 +54,7 @@ export const addReport = data => (dispatch) => {
     startDate,
     userEmails: emails
   };
+  dispatch({ type: CREATE_LOADER, payload: true });
   axios.post(`${host}/report`, query)
     .then((result) => {
       dispatch({
@@ -56,14 +63,17 @@ export const addReport = data => (dispatch) => {
           data: result.data
         }
       });
+      dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch(push('/reports'));
     }
     ).catch((error) => {
+      dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 };
 
-export const removeReport = (id, shouldRemoveFromState, callback) => dispatch =>
+export const removeReport = (id, shouldRemoveFromState, callback) => (dispatch) => {
+  dispatch({ type: CREATE_LOADER, payload: true });
   axios.delete(`${host}/report/${id}`)
     .then(() => {
       if (shouldRemoveFromState) {
@@ -76,10 +86,13 @@ export const removeReport = (id, shouldRemoveFromState, callback) => dispatch =>
       } else if (callback) {
         callback();
       }
+      dispatch({ type: CLEAR_LOADER, payload: false });
     }
     ).catch((error) => {
+      dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
+};
 
 export const searchReport = name => dispatch =>
   axios.get(`http://localhost:3000/report?q=${name}`)

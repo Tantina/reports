@@ -56,3 +56,31 @@ table.report-table {
     cursor: pointer;
   }
 }
+
+.loader-container {
+  background: #fdf5eb;
+  border: 1px solid #ccc;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  left: 50%;
+  margin-left: -10px;
+  padding: 5px 10px;
+  position: fixed;
+  top: 0;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+    margin-right: 5px;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
