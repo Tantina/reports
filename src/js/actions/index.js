@@ -34,8 +34,8 @@ export const getReports = (page, limit, sort, order, query) => (dispatch) => {
       });
       dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch(push(`/reports?page=${page}&limit=${limit}&sort=${sort}&order=${order}`));
-    }
-    ).catch((error) => {
+    })
+    .catch((error) => {
       dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
@@ -46,8 +46,8 @@ export const getReport = id => dispatch =>
     .then(result => dispatch({
       type: GET_REPORT,
       payload: result.data
-    })
-    ).catch((error) => {
+    }))
+    .catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 
@@ -64,8 +64,8 @@ export const addReport = data => (dispatch) => {
       });
       dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch(push('/reports'));
-    }
-    ).catch((error) => {
+    })
+    .catch((error) => {
       dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
@@ -80,8 +80,8 @@ export const removeReport = id => (dispatch) => {
         type: REMOVE_REPORT,
         payload: id
       });
-    }
-    ).catch((error) => {
+    })
+    .catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 };

@@ -4,14 +4,10 @@ import PropTypes from 'prop-types';
 const { func } = PropTypes;
 
 class Bundle extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      // short for "module" but that's a keyword in js, so "mod"
-      mod: null
-    };
-  }
+  state = {
+    // short for "module" but that's a keyword in js, so "mod"
+    mod: null
+  };
 
   componentWillMount() {
     this.load(this.props);

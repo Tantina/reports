@@ -79,6 +79,16 @@
       "email": "dfg@mail.ru",
       "emails": [],
       "id": 181
+    },
+    {
+      "type": "aggregate-access",
+      "access": "group1",
+      "name": "d",
+      "email": "fds@mail.ru",
+      "emails": [
+        "vcb@mail.rf"
+      ],
+      "id": 182
     }
   ]
 }

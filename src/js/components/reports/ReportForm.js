@@ -52,33 +52,9 @@ class ReportForm extends Component {
     ));
   }
 
-  handleChangeName = (e) => {
+  handleChangeInput = key => (event) => {
     this.setState({
-      name: e.currentTarget.value
-    });
-  }
-
-  handleChangeEmail = (e) => {
-    this.setState({
-      email: e.currentTarget.value
-    });
-  }
-
-  handleChangeEmails = (e) => {
-    this.setState({
-      emails: e.currentTarget.value
-    });
-  }
-
-  handleChangeType = (e) => {
-    this.setState({
-      type: e.currentTarget.value
-    });
-  }
-
-  handleChangeGroup = (e) => {
-    this.setState({
-      access: e.currentTarget.value
+      [key]: event.currentTarget.value
     });
   }
 
@@ -117,23 +93,23 @@ class ReportForm extends Component {
           <ReportName
             name={name}
             isValid={isValidName}
-            onChange={this.handleChangeName}
+            onChange={this.handleChangeInput('name')}
           />
 
           <ReportType
             type={type}
-            onChange={this.handleChangeType}
+            onChange={this.handleChangeInput('type')}
           />
 
           <ReportAccessGroup
             access={access}
-            onChange={this.handleChangeGroup}
+            onChange={this.handleChangeInput('access')}
           />
 
           <ReportEmails
             emails={emails}
             isValid={isValidEmails}
-            onChange={this.handleChangeEmails}
+            onChange={this.handleChangeInput('emails')}
           />
 
           <ReportDateRange
@@ -147,7 +123,7 @@ class ReportForm extends Component {
           <ReportEmail
             email={email}
             isValid={isValidEmail}
-            onChange={this.handleChangeEmail}
+            onChange={this.handleChangeInput('email')}
           />
 
           {errorBlock}
