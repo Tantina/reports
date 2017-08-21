@@ -13,18 +13,16 @@ import reducers from './reducers';
 
 import '../css/main.css';
 
-const App = () => {
-  const history = createHistory();
-  const router = routerMiddleware(history);
-  const store = createStore(reducers, {}, applyMiddleware(thunk, router));
+const history = createHistory();
+const router = routerMiddleware(history);
+const store = createStore(reducers, {}, applyMiddleware(thunk, router));
 
-  return (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Routes />
-      </ConnectedRouter>
-    </Provider>
-  );
-};
+const App = () => (
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Routes />
+    </ConnectedRouter>
+  </Provider>
+);
 
 ReactDOM.render(<App />, document.getElementById('root'));

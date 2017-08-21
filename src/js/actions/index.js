@@ -34,8 +34,8 @@ export const getReports = (page, limit, sort, order) => (dispatch) => {
       });
       dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch(push(`/reports?page=${page}&limit=${limit}&sort=${sort}&order=${order}`));
-    }
-    ).catch((error) => {
+    })
+    .catch((error) => {
       dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
@@ -65,8 +65,8 @@ export const addReport = data => (dispatch) => {
       });
       dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch(push('/reports'));
-    }
-    ).catch((error) => {
+    })
+    .catch((error) => {
       dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
@@ -87,8 +87,8 @@ export const removeReport = (id, shouldRemoveFromState, callback) => (dispatch) 
         callback();
       }
       dispatch({ type: CLEAR_LOADER, payload: false });
-    }
-    ).catch((error) => {
+    })
+    .catch((error) => {
       dispatch({ type: CLEAR_LOADER, payload: false });
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
@@ -99,8 +99,8 @@ export const searchReport = name => dispatch =>
     .then(result => dispatch({
       type: SEARCH_REPORT,
       payload: result.data
-    })
-    ).catch((error) => {
+    }))
+    .catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 
@@ -124,8 +124,8 @@ export const getReportStatus = ids => dispatch =>
         data: result.data,
         ids
       }
-    })
-    ).catch((error) => {
+    }))
+    .catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 
@@ -137,8 +137,8 @@ export const getReportAccessGroups = name => (dispatch) => {
       payload: {
         data: result.data
       }
-    })
-    ).catch((error) => {
+    }))
+    .catch((error) => {
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 };
