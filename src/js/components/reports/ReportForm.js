@@ -118,7 +118,9 @@ class ReportForm extends Component {
     const isValidAccessGroups = !!access.guid;
     const isValidForm = isValidName && isValidEmail && isValidEmails && isValidAccessGroups;
 
-    const errorBlock = errorMessage ? <Alert bsStyle="danger">{errorMessage}</Alert> : null;
+    const errorBlock = errorMessage ?
+      <Alert bsStyle="danger" bsClass="error-block alert">{errorMessage}</Alert>
+      : null;
 
     return (
       <form onSubmit={this.handleSubmit}>

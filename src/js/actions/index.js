@@ -67,8 +67,11 @@ export const addReport = data => (dispatch) => {
       dispatch(push('/reports'));
     })
     .catch((error) => {
+      const errorMessage = error.response ?
+        error.response.data.errors.reduce(((text, error) => `${text}\n${error.message}`), '').trim()
+        : error.message;
       dispatch({ type: CLEAR_LOADER, payload: false });
-      dispatch({ type: CREATE_ERROR, payload: error.message });
+      dispatch({ type: CREATE_ERROR, payload: errorMessage });
     });
 };
 
