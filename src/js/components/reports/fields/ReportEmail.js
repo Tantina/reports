@@ -16,6 +16,7 @@ const ReportEmail = (props) => {
       label="Email This Report to"
       placeholder="Enter email"
       isValid={isValid}
+      isRequired
       onChange={onChange}
     />
   );

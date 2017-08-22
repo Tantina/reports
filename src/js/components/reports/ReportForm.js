@@ -23,7 +23,7 @@ class ReportForm extends Component {
     let initialState = {
       name: '',
       emailTo: '',
-      type: 'USER_AGREGATE_ACCESS',
+      type: 'LESSON_AGGREGATE_USER_PERFORMANCE',
       access: {
         guid: '',
         name: ''
@@ -56,7 +56,7 @@ class ReportForm extends Component {
           guid: accessGroupUUID,
           name: accessGroupName
         },
-        emails: userEmails.join(', '),
+        emails: userEmails ? userEmails.join(', ') : '',
         startDate: startDate && moment(startDate),
         endDate: endDate && moment(endDate)
       };

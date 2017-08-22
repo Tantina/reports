@@ -17,6 +17,7 @@ const ReportName = (props) => {
       placeholder="Enter name"
       help="Enter a unique name using alphanumeric characters (No spaces or special characters other than - dash and _ underscore). i.e. CPAexcel_may_june-2017"
       isValid={isValid}
+      isRequired
       onChange={onChange}
     />
   );

@@ -76,7 +76,7 @@ class ReportAccessGroups extends Component {
 
     return (
       <FormGroup controlId="formControlsSelect" validationState={isValid ? null : 'error'}>
-        <ControlLabel>Access Group</ControlLabel>
+        <ControlLabel>Access Group<sup>*</sup></ControlLabel>
         <Autosuggest
           theme={theme}
           suggestions={suggestions}
