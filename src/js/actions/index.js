@@ -54,6 +54,7 @@ export const addReport = data => (dispatch) => {
     startDate,
     userEmails: emails
   };
+  dispatch({ type: CLEAR_ERROR });
   dispatch({ type: CREATE_LOADER, payload: true });
   axios.post(`${host}/report`, query)
     .then((result) => {

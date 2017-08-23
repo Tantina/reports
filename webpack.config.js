@@ -14,6 +14,7 @@ const VENDOR_LIBS = [
   'react-redux',
   'redux',
   'react-bootstrap',
+  'lodash',
   'classnames',
   'prop-types'
 ];

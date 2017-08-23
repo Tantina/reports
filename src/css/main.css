@@ -88,3 +88,13 @@ table.report-table {
 .error-block {
   white-space: pre-wrap;
 }
+
+.form-item__access-group {
+  position: relative;
+}
+
+.input-loader {
+  position: absolute;
+  right: 5px;
+  bottom: 7px;
+}

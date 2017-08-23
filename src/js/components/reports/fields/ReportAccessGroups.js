@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import _ from 'lodash';
 import { FormGroup, ControlLabel } from 'react-bootstrap';
 import Autosuggest from 'react-autosuggest';
 import { host } from '../../../constants/host';
+
+const DELAYTIME = 1000;
 
 const { object, bool, func } = PropTypes;
 
@@ -22,18 +25,11 @@ class ReportAccessGroups extends Component {
     this.state = {
       value: group.name,
       guid: group.guid,
-      suggestions: []
+      suggestions: [],
+      isLoading: false
     };
-  }
 
-  onSuggestionsFetchRequested = ({ value }) => {
-    if (!value) {
-      return;
-    }
-    const limit = 10;
-    axios.get(`${host}/accessgroup?name=${value}&limit=${limit}`)
-      .then(result => this.setState({ suggestions: result.data })
-      );
+    this.debouncedLoadSuggestions = _.debounce(this.loadSuggestions, DELAYTIME);
   }
 
   onChange = (event, { newValue }) => {
@@ -47,21 +43,39 @@ class ReportAccessGroups extends Component {
     this.props.onChangeAccessGroups(guid, newValue);
   }
 
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.debouncedLoadSuggestions(value);
+  };
+
   onSuggestionsClearRequested = () => {
     this.setState({
       suggestions: []
     });
   }
 
+  loadSuggestions(value) {
+    this.setState({
+      isLoading: true,
+      suggestions: []
+    });
+
+    const limit = 10;
+    axios.get(`${host}/accessgroup?name=${value}&limit=${limit}`)
+      .then(result => this.setState({
+        isLoading: false,
+        suggestions: result.data
+      })
+      );
+  }
+
   render() {
-    const { value, suggestions } = this.state;
+    const { value, suggestions, isLoading } = this.state;
     const { isValid } = this.props;
 
     const inputProps = {
       placeholder: 'Type an access group',
       value,
-      onChange: this.onChange,
-      onBlur: this.onBlur
+      onChange: this.onChange
     };
 
     const theme = {
@@ -75,7 +89,7 @@ class ReportAccessGroups extends Component {
     };
 
     return (
-      <FormGroup controlId="formControlsSelect" validationState={isValid ? null : 'error'}>
+      <FormGroup controlId="formControlsSelect" className="form-item__access-group" validationState={isValid ? null : 'error'}>
         <ControlLabel>Access Group<sup>*</sup></ControlLabel>
         <Autosuggest
           theme={theme}
@@ -86,6 +100,10 @@ class ReportAccessGroups extends Component {
           renderSuggestion={renderSuggestion}
           inputProps={inputProps}
         />
+        {isLoading ?
+          <div className="input-loader">
+            <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate" />
+          </div> : null }
       </FormGroup>
     );
   }
