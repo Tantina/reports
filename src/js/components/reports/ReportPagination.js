@@ -10,7 +10,7 @@ const ReportPagination = (props) => {
 
   const handleSelect = (e) => {
     const { reports, getReports } = props;
-    getReports(e, reports.limit, reports.sort, reports.order);
+    getReports(e, reports.limit, reports.sort, reports.order, reports.query);
   };
 
   return (

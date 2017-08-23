@@ -17,11 +17,13 @@ const ReportTableItem = (props) => {
   const date = submitTime.split(/\s/)[0];
 
   const handleClickRemoveBtn = () => {
-    const { page, limit, sort, order, count, all } = props.reports;
+    const { page, limit, sort, order, count, all, query } = props.reports;
     // Check if there is the last page and if the element is the last
     const shouldRemoveFromState = Math.ceil(count / limit) === Number(page) && all.length !== 1;
     const pageNumer = (all.length === 1 && page !== 1) ? page - 1 : page;
-    const callback = (count > limit) ? () => props.getReports(pageNumer, limit, sort, order) : null;
+    const callback = (count > limit) ?
+      () => props.getReports(pageNumer, limit, sort, order, query)
+      : null;
     props.removeReport(id, shouldRemoveFromState, callback);
   };
 

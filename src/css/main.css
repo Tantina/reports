@@ -3,6 +3,7 @@
 
   }
 }
+
 .filter-sorter{
   float: right;
 
@@ -55,6 +56,17 @@ table.report-table {
   a {
     cursor: pointer;
   }
+}
+
+.search {
+  display: inline-block;
+  margin-left: 30px;
+
+&_field {
+   width: 300px;
+   display: inline-block;
+   margin-left: 8px;
+ }
 }
 
 .loader-container {

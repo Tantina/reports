@@ -6,6 +6,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import ReportTable from './ReportTable';
 import ReportPagination from './ReportPagination';
 import ReportTableSettings from './ReportTableSettings';
+import ReportSearch from './ReportSearch';
 import Loader from '../common/Loader';
 
 import { getReports, clearErrors } from '../../actions';
@@ -25,6 +26,7 @@ class ReportPage extends Component {
         <LinkContainer className="create-report-btn" to="/new">
           <Button>Create</Button>
         </LinkContainer>
+        <ReportSearch {...this.props} />
         <ReportTableSettings {...this.props} />
         <ReportTable {...this.props} />
         <ReportPagination {...this.props} />

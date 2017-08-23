@@ -2,7 +2,6 @@ import {
   GET_REPORTS,
   ADD_REPORT,
   REMOVE_REPORT,
-  SEARCH_REPORT,
   GET_REPORT_STATUS,
   GET_REPORT_ACCESS_GROUPS
 } from '../constants/ActionTypes';
@@ -13,7 +12,8 @@ const initialState = {
   limit: 10,
   count: 0,
   sort: 'id',
-  order: 'desc'
+  order: 'desc',
+  query: ''
 };
 
 export default (state = initialState, action) => {
@@ -21,8 +21,8 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case GET_REPORTS: {
-      const { page, limit, count, sort, order } = payload;
-      return { ...state, all: payload.data, page, limit, count, sort, order };
+      const { page, limit, count, sort, order, query } = payload;
+      return { ...state, all: payload.data, page, limit, count, sort, order, query };
     }
     case ADD_REPORT:
       return { ...state,
@@ -35,8 +35,6 @@ export default (state = initialState, action) => {
       return { ...state,
         all: state.all.filter(report => report.id !== payload.id)
       };
-    case SEARCH_REPORT:
-      return { ...state, all: payload };
     case GET_REPORT_STATUS:
       return { ...state,
         all: state.all.map(report => (payload.ids.includes(report.id)

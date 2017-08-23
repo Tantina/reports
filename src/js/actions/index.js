@@ -4,7 +4,6 @@ import {
   GET_REPORTS,
   ADD_REPORT,
   REMOVE_REPORT,
-  SEARCH_REPORT,
   CREATE_ERROR,
   GET_REPORT_TYPES,
   GET_REPORT_STATUS,
@@ -16,9 +15,10 @@ import {
 
 import { host } from '../constants/host';
 
-export const getReports = (page, limit, sort, order) => (dispatch) => {
+export const getReports = (page, limit, sort, order, query) => (dispatch) => {
   dispatch({ type: CREATE_LOADER, payload: true });
-  axios.get(`${host}/report?page=${page - 1}&size=${limit}&sort=${sort},${order}`)
+  const q = query ? `&name=${query}` : '';
+  axios.get(`${host}/report?page=${page - 1}&size=${limit}&sort=${sort},${order}${q}`)
     .then((result) => {
       const { content, totalElements } = result.data;
       dispatch({
@@ -29,7 +29,8 @@ export const getReports = (page, limit, sort, order) => (dispatch) => {
           limit,
           count: totalElements,
           sort,
-          order
+          order,
+          query
         }
       });
       dispatch({ type: CLEAR_LOADER, payload: false });
@@ -97,16 +98,6 @@ export const removeReport = (id, shouldRemoveFromState, callback) => (dispatch) 
       dispatch({ type: CREATE_ERROR, payload: error.message });
     });
 };
-
-export const searchReport = name => dispatch =>
-  axios.get(`http://localhost:3000/report?q=${name}`)
-    .then(result => dispatch({
-      type: SEARCH_REPORT,
-      payload: result.data
-    }))
-    .catch((error) => {
-      dispatch({ type: CREATE_ERROR, payload: error.message });
-    });
 
 export const getReportTypes = () => dispatch =>
   axios.get(`${host}/report/types`)
