@@ -44,7 +44,7 @@ class ReportTable extends Component {
     const limit = params.get('limit') || reports.limit;
     const sort = params.get('sort') || reports.sort;
     const order = params.get('order') || reports.order;
-    const query = params.get('q') || reports.query;
+    const query = params.get('q') || '';
     return getReports(page, limit, sort, order, query);
   }
 
